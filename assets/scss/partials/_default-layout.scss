@@ -1,0 +1,132 @@
+$base-shadow: 0 1px 2px rgba(0, 21, 41, 0.08);
+$layout-content-color: #e5ecf7; //#e5ecf7 or #f4f6fa
+
+:host {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+nz-breadcrumb {
+  border-bottom: 1px solid $border-color;
+  background: white;
+  padding: 6px 0;
+}
+
+.app-layout {
+  min-height: 100%;
+
+  Header {
+    background: #fff;
+    padding: 0;
+    width: 100%;
+    top: 0;
+    position: sticky;
+    z-index: 999;
+
+    .trigger {
+      padding: 0 24px;
+      font-size: 18px;
+      line-height: 64px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .app-header {
+      display: flex;
+      padding: 0;
+      align-items: center;
+
+      &:hover::after {
+        opacity: 0.5;
+      }
+
+      .logo {
+        margin: auto 3em auto 1.5em;
+
+        img {
+          max-height: 100%;
+          max-width: 100%;
+        }
+      }
+
+      .header-menu {
+        flex: 1;
+        border: none;
+
+        .ant-menu-item {
+          vertical-align: top;
+          border: none;
+          font-weight: 600;
+        }
+      }
+
+      .header-left {
+        display: flex;
+
+        div {
+          padding: 0 18px;
+        }
+      }
+    }
+  }
+
+  .sider {
+    clear: both;
+    position: relative;
+    border-right: 1px solid $border-light-color;
+
+    .logo {
+      height: 32px;
+      margin: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &-menu {
+      border: none;
+      min-height: 100%;
+    }
+  }
+
+  .content {
+    margin: 0px;
+    padding: 16px;
+    background: $layout-content-color;
+    // height: calc(100vh - 140px - 2em);
+  }
+
+  .footer {
+    margin-top: 2em;
+    padding: 5em 5em 0;
+    position: relative;
+    background: var(--dark-color);
+    color: var(--white-color);
+  }
+}
+
+.drawer {
+  .ant-drawer-body {
+    padding-top: 7em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 528px) {
+  .ant-layout-sider-collapsed {
+    width: 0 !important;
+    flex: 0 0 0 !important;
+    min-width: 0 !important;
+  }
+
+  .sider {
+    top: 55px;
+    right: 0;
+    overflow: hidden;
+    position: absolute !important;
+  }
+}
+

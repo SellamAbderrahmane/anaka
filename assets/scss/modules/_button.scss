@@ -1,0 +1,8 @@
+.primary-btn-outlined {
+  &:hover,
+  &:focus {
+    background-color: $primary;
+    color: $light;
+    transition: all 0.3s;
+  }
+}

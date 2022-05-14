@@ -1,0 +1,62 @@
+// Form Settings
+$max-width: 600px;
+$max-height: 400px;
+$gutters: 24px;
+
+.auth-container {
+  padding: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  overflow: hidden;
+  position: relative;
+  background-image: url("http://localhost:3000/images/09.png");
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0em;
+    left: 0;
+    height: 0.25em;
+    width: 100%;
+    background: var(--primary-color);
+  }
+
+  .form-container {
+    overflow: hidden;
+    width: 100%;
+    max-width: 40em;
+    border-radius: 0.2em;
+    position: relative;
+    background: var(--white-color);
+    box-shadow: 0 0 30px var(--box-shadow-color);
+
+
+    .login {
+      padding: 3em calc(5% + 3em) 3em 3em;
+    }
+    .register {
+      z-index: 5;
+      position: absolute;
+      top: 0;
+      left: 95%;
+      background: var(--primary-color);
+      width: 100%;
+      min-height: 100%;
+      padding: 3em calc(10% + 3em) 3em 3em;
+      transition: 0.3s ease;
+      cursor: pointer;
+
+      &:hover {
+        left: 93%;
+        box-shadow: 0 0 30px var(--box-shadow-color-2);
+
+        &:before,
+        &:after {
+          opacity: 0;
+        }
+      }
+    }
+  }
+}
