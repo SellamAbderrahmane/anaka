@@ -1,2 +1,2 @@
 export * from "./components/PrivateRoute"
-export * from "./layout/DefaultLayout"
+export * from "./layout/Layout"

@@ -1,16 +1,16 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 
 import Authentication, { AuthProvider } from "./auth"
-import DefaultLayout from "../ui/layout/DefaultLayout"
 import PrivateRoute from "../ui/components/PrivateRoute"
+import Layout from "../ui/layout/Layout"
 
 export * from "./auth"
 
 function MainRoutes() {
   return (
-    <DefaultLayout>
+    <Layout>
       <h1>hello</h1>
-    </DefaultLayout>
+    </Layout>
   )
 }
 
@@ -18,8 +18,8 @@ function AuthRoutes() {
   return (
     <AuthProvider>
       <Routes>
-        <Route path="/auth" element={<Authentication />} />
         <Route path="/" element={<PrivateRoute element={MainRoutes} />} />
+        <Route path="/auth" element={<Authentication />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </AuthProvider>

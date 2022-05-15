@@ -30,6 +30,8 @@ export class AuthRepository {
 
   async isAuthentecated() {
     try {
+      return true;
+      throw new ServerException('error')
       const rep = await this.http.fetch({
         url: "/auth/verify_user",
         method: "GET",

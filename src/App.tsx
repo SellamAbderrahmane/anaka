@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { configState, loadConfig } from "./app/config"
 
 import { useAppDispatch, useAppSelector } from "./app/hooks"
-import Counter from "./modules/counter"
+import AuthRoutes from "./modules"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -10,13 +10,13 @@ const App = () => {
 
   useEffect(() => {
     dispatch(loadConfig())
-  }, [dispatch])
+  }, [])
 
   if (state.status === "loading") {
     return <div>laoding</div>
   }
 
-  return <Counter />
+  return <AuthRoutes />
 }
 
 export default App

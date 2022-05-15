@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { AppThunk, RootState } from "./store"
 import { AxiosClient } from "../data/axios.client"
 
-export interface APPSTATE {
+export interface CONFIGSTATE {
   http: AxiosClient | null
   status?: "idle" | "loading" | "failed"
 }
 
-const initialState: APPSTATE = {
+const initialState: CONFIGSTATE = {
   http: null,
   status: "loading",
 }

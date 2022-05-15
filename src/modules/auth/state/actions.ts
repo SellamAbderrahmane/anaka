@@ -1,6 +1,8 @@
+import { AppThunk } from "../../../app/store"
+import { ServerException } from "../../../data"
 import AuthRepository from "../../../data/repositories/userRepository"
 import { TOKEN } from "../../../utils"
-import { ServerException } from "../../../utils"
+import { loading, loginError, loginSuccess } from "./state"
 
 export enum AuthActionTypes {
   LOGIN_REQUEST = "LOGIN_REQUEST",
@@ -45,28 +47,20 @@ export function authActions(repository: AuthRepository): AuthActionsCreators {
     }
   }
 
-  function isAuthenticated(): any {
+  function isAuthenticated(): AppThunk {
     return async (dispatch: any) => {
       try {
-        dispatch({
-          type: AuthActionTypes.LOGIN_REQUEST,
-        })
+        dispatch(loading())
 
-        const resp = await repository.isAuthentecated()
+        const result = await repository.isAuthentecated()
 
-        const { accessToken, user } = resp
+        const { accessToken, user } = result
 
         localStorage.setItem(TOKEN, accessToken)
 
-        dispatch({
-          type: AuthActionTypes.LOGIN_SUCCESS,
-          user,
-        })
+        dispatch(loginSuccess(user))
       } catch (error) {
-        dispatch({
-          type: AuthActionTypes.LOGIN_ERROR,
-          error: error.message,
-        })
+        dispatch(loginError(error.message))
       }
     }
   }
