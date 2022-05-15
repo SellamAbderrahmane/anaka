@@ -2,13 +2,11 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit"
 
 import configReducer from "./config"
 import { authReducer } from "../modules/auth/state"
-import counterReducer from "../modules/counter/state/state"
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    config: configReducer,
-    counter: counterReducer,
+    config: configReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

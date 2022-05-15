@@ -4,11 +4,15 @@ import { AxiosClient } from "../data/axios.client"
 
 export interface CONFIGSTATE {
   http: AxiosClient | null
+  cartItems?: number
+  wishItems?: number
   status?: "idle" | "loading" | "failed"
 }
 
 const initialState: CONFIGSTATE = {
   http: null,
+  wishItems: 0,
+  cartItems: 0,
   status: "loading",
 }
 
@@ -19,18 +23,22 @@ export const config = createSlice({
     loading: (state) => {
       state.status = "loading"
     },
-    loaded: (state, action: PayloadAction<any>) => {
+    loaded: (state, action: PayloadAction<CONFIGSTATE>) => {
       const data = action.payload
 
       state.http = data.http
       state.status = "idle"
+      state.cartItems = data.cartItems
+    },
+    addToCart: (state, action: PayloadAction<number>) => {
+      state.cartItems += action.payload
     },
   },
 })
 
 export const configState = (state: RootState) => state.config
 
-export const { loaded, loading } = config.actions
+export const { loaded, loading, addToCart } = config.actions
 
 export const loadConfig = (): AppThunk => async (dispatch) => {
   try {
@@ -41,6 +49,7 @@ export const loadConfig = (): AppThunk => async (dispatch) => {
     dispatch(
       loaded({
         http: axios,
+        cartItems: 10,
       })
     )
   } catch (error) {}

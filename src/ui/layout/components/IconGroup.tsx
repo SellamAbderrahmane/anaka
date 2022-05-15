@@ -1,16 +1,13 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { configState } from "../../../app/config"
+import { useAppSelector } from "../../../app/hooks"
 import MenuCart from "../../components/MenuCart"
 
-const IconGroup = ({
-  currency,
-  cartData,
-  wishlistData,
-  compareData,
-  deleteFromCart,
-  iconWhiteClass,
-}: any) => {
-  const handleClick = (e) => {
+const IconGroup = ({ currency, deleteFromCart }: any) => {
+  const appState = useAppSelector(configState)
+
+  const handleClick = (e: any) => {
     e.currentTarget.nextSibling.classList.toggle("active")
   }
 
@@ -20,7 +17,7 @@ const IconGroup = ({
   }
 
   return (
-    <div className={`header-right-wrap ${iconWhiteClass || ""}`}>
+    <div className={`header-right-wrap`}>
       <div className="same-style header-search d-none d-lg-block">
         <button className="search-active" onClick={(e) => handleClick(e)}>
           <i className="pe-7s-search" />
@@ -52,35 +49,29 @@ const IconGroup = ({
           </ul>
         </div>
       </div>
-      {/* <div className="same-style header-compare">
-        <Link to={process.env.PUBLIC_URL + "/compare"}>
-          <i className="pe-7s-shuffle" />
-          <span className="count-style">
-            {compareData?.length ? compareData.length : 0}
-          </span>
-        </Link>
-      </div> */}
+
       <div className="same-style header-wishlist">
         <Link to={process.env.PUBLIC_URL + "/wishlist"}>
           <i className="pe-7s-like" />
-          <span className="count-style">
-            {wishlistData?.length ? wishlistData.length : 0}
-          </span>
+          <span className="count-style">{appState.wishItems}</span>
         </Link>
       </div>
+
       <div className="same-style cart-wrap d-none d-lg-block">
         <button className="icon-cart" onClick={(e) => handleClick(e)}>
           <i className="pe-7s-shopbag" />
-          <span className="count-style">{cartData?.length ? cartData.length : 0}</span>
+          <span className="count-style">{appState.cartItems}</span>
         </button>
-        <MenuCart cartData={cartData} currency={currency} deleteFromCart={deleteFromCart} />
+        <MenuCart cartData={[]} currency={currency} deleteFromCart={deleteFromCart} />
       </div>
+
       <div className="same-style cart-wrap d-block d-lg-none">
         <Link className="icon-cart" to={process.env.PUBLIC_URL + "/cart"}>
           <i className="pe-7s-shopbag" />
-          <span className="count-style">{cartData?.length ? cartData.length : 0}</span>
+          <span className="count-style">{appState.cartItems}</span>
         </Link>
       </div>
+
       <div className="same-style mobile-off-canvas d-block d-lg-none">
         <button className="mobile-aside-button" onClick={() => triggerMobileMenu()}>
           <i className="pe-7s-menu" />
