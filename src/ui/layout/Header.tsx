@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import HeaderTop from "./components/HeaderTop"
 import IconGroup from "./components/IconGroup"
 import Logo from "./components/Logo"
 import NavMenu from "./components/NavMenu"
@@ -22,10 +23,9 @@ const Header = ({ top }: any) => {
 
   return (
     <header className="header-area clearfix">
-      <div className={`${top === "visible" ? "d-none d-lg-block" : "d-none"} header-top-area`}>
+      <div className='d-none d-lg-block header-top-area'>
         <div className="container">
-          {/* header top */}
-          {/* <HeaderTop borderStyle={borderStyle} /> */}
+          <HeaderTop />
         </div>
       </div>
 

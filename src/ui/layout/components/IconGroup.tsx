@@ -38,20 +38,26 @@ const IconGroup = ({ currency, deleteFromCart }: any) => {
         <div className="account-dropdown">
           <ul>
             <li>
-              <Link to={process.env.PUBLIC_URL + "/login-register"}>Login</Link>
+              <Link to="/auth/signin">Login</Link>
             </li>
             <li>
-              <Link to={process.env.PUBLIC_URL + "/login-register"}>Register</Link>
+              <Link to="/auth/register">Register</Link>
             </li>
             <li>
-              <Link to={process.env.PUBLIC_URL + "/my-account"}>my account</Link>
+              <Link to="/account">my account</Link>
             </li>
           </ul>
         </div>
       </div>
+      <div className="same-style header-compare">
+        <Link to={"/compare"}>
+          <i className="pe-7s-shuffle" />
+          <span className="count-style">{appState.cartItems}</span>
+        </Link>
+      </div>
 
       <div className="same-style header-wishlist">
-        <Link to={process.env.PUBLIC_URL + "/wishlist"}>
+        <Link to={"/wishlist"}>
           <i className="pe-7s-like" />
           <span className="count-style">{appState.wishItems}</span>
         </Link>
@@ -66,7 +72,7 @@ const IconGroup = ({ currency, deleteFromCart }: any) => {
       </div>
 
       <div className="same-style cart-wrap d-block d-lg-none">
-        <Link className="icon-cart" to={process.env.PUBLIC_URL + "/cart"}>
+        <Link className="icon-cart" to={"/cart"}>
           <i className="pe-7s-shopbag" />
           <span className="count-style">{appState.cartItems}</span>
         </Link>

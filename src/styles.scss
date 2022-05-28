@@ -1,19 +1,1 @@
 @import "./assets/scss/style.scss";
-
-#root {
-  height: 100%;
-  overflow: hidden;
-}
-
-.anticon {
-  &:hover,
-  &:focus {
-    color: $primary;
-  }
-}
-
-.tabs-border-none {
-  .ant-tabs-nav::before {
-    border: none;
-  }
-}

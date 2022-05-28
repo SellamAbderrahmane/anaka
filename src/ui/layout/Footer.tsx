@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-// import { animateScroll } from "react-scroll";
-// import FooterCopyright from "../../components/footer/FooterCopyright";
-// import FooterNewsletter from "../../components/footer/FooterNewsletter";
+import { animateScroll } from "react-scroll"
 
 const Footer = ({
   backgroundColorClass,
@@ -26,7 +24,7 @@ const Footer = ({
   }, [])
 
   const scrollToTop = () => {
-    // animateScroll.scrollToTop();
+    animateScroll.scrollToTop()
   }
 
   const handleScroll = () => {
@@ -44,11 +42,7 @@ const Footer = ({
       <div className={`${containerClass ? containerClass : "container"}`}>
         <div className="row">
           <div className={`${sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"}`}>
-            {/* footer copyright */}
-            {/* <FooterCopyright
-              footerLogo="/assets/img/logo/logo.png"
-              spaceBottomClass="mb-30"
-            /> */}
+            <FooterCopyright footerLogo="/assets/img/logo/logo.png" spaceBottomClass="mb-30" />
           </div>
           <div className={`${sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"}`}>
             <div className="footer-widget mb-30 ml-30">
@@ -144,6 +138,29 @@ const Footer = ({
         <i className="fa fa-angle-double-up"></i>
       </button>
     </footer>
+  )
+}
+
+const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }: any) => {
+  return (
+    <div
+      className={`copyright ${spaceBottomClass ? spaceBottomClass : ""} ${
+        colorClass ? colorClass : ""
+      }`}
+    >
+      <div className="footer-logo">
+        <Link to={process.env.PUBLIC_URL + "/"}>
+          <img alt="" src={process.env.PUBLIC_URL + footerLogo} />
+        </Link>
+      </div>
+      <p>
+        &copy; {new Date().getFullYear()}{" "}
+        <a href="https://hasthemes.com" rel="noopener noreferrer" target="_blank">
+          Flone
+        </a>
+        .<br /> All Rights Reserved
+      </p>
+    </div>
   )
 }
 

@@ -343,7 +343,6 @@
 
 .product-dec-slider-2 {
   display: inline-block;
-  float: left;
 
   width: 20%;
   padding: 0;
@@ -408,7 +407,6 @@
     position: relative;
 
     display: inline-block;
-    float: left;
 
     width: 80%;
     @media #{$lg-layout} {
@@ -571,6 +569,12 @@
 
 .product-large-image-wrapper {
   position: relative;
+
+  .swiper-container {
+    overflow: hidden;
+    position: relative;
+  }
+
   .product-img-badges {
     position: absolute;
     z-index: 3;
@@ -650,6 +654,11 @@
 }
 
 .product-small-image-wrapper {
+  .swiper-container {
+    overflow: hidden;
+    position: relative;
+  }
+
   .ht-swiper-button-nav {
     visibility: hidden;
 
@@ -659,6 +668,14 @@
     background: none;
     i {
       font-size: 40px;
+    }
+
+    &.swiper-button-next {
+      right: 0;
+    }
+
+    &.swiper-button-prev {
+      left: 0;
     }
   }
   .single-image {

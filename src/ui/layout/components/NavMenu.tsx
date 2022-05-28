@@ -1,6 +1,5 @@
 import React from "react"
 import { Link } from "react-router-dom"
-// import { multilanguage } from "redux-multilanguage";
 
 const NavMenu = ({ menuWhiteClass, sidebarMenu }: any) => {
   return (
@@ -13,14 +12,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }: any) => {
         <ul>
           <li>
             <Link to={process.env.PUBLIC_URL + "/"}>
-              home
-              {sidebarMenu ? (
-                <span>
-                  <i className="fa fa-angle-right"></i>
-                </span>
-              ) : (
-                <i className="fa fa-angle-down" />
-              )}
+              home <i className="fa fa-angle-down" />
             </Link>
             <ul className="mega-menu mega-menu-padding">
               <li>
@@ -58,15 +50,8 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }: any) => {
             </ul>
           </li>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-              shop
-              {sidebarMenu ? (
-                <span>
-                  <i className="fa fa-angle-right"></i>
-                </span>
-              ) : (
-                <i className="fa fa-angle-down" />
-              )}
+            <Link to="/shop">
+              shop <i className="fa fa-angle-down" />
             </Link>
             <ul className="mega-menu">
               <li>
@@ -109,18 +94,6 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }: any) => {
             <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>collection</Link>
           </li>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
-              blog
-              {sidebarMenu ? (
-                <span>
-                  <i className="fa fa-angle-right"></i>
-                </span>
-              ) : (
-                <i className="fa fa-angle-down" />
-              )}
-            </Link>
-          </li>
-          <li>
             <Link to={process.env.PUBLIC_URL + "/contact"}>contact_us</Link>
           </li>
         </ul>
@@ -129,5 +102,4 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }: any) => {
   )
 }
 
-// export default multilanguage(NavMenu);
 export default NavMenu
