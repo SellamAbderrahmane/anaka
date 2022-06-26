@@ -2,11 +2,15 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit"
 
 import configReducer from "./config"
 import { authReducer } from "../modules/auth/state"
+import { ShopReducer } from "../modules/shop/state"
+import { homeReducer } from "../modules/home/state"
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    config: configReducer
+    home: homeReducer,
+    shop: ShopReducer,
+    config: configReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

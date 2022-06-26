@@ -1,24 +1,23 @@
-import React, { useContext } from "react"
+import React from "react"
 import { useSelector } from "react-redux"
-import { configState } from "../../app/config"
+
 import Home from "./Home"
-import { counterActions } from "./state/actions"
-import { IHomeActions } from "./state/actions"
+import { Homecontext } from "../contexts"
+import { homeActions } from "./state/actions"
+import { ProductRepository, UserRepository } from "../../data"
+import { configState } from "../../app/config"
 
-const Countercontext = React.createContext<any>({})
-
-export const useHome = () => useContext<IHomeActions>(Countercontext)
 export function HomeProvider({ children }: any) {
   const config = useSelector(configState)
-  const actions = counterActions(config)
+  const actions = homeActions(new ProductRepository(config.http), new UserRepository(config.http))
 
-  return <Countercontext.Provider value={actions}>{children}</Countercontext.Provider>
+  return <Homecontext.Provider value={actions}>{children}</Homecontext.Provider>
 }
 
-export default function CounterInit() {
+export default function HomeInit() {
   return (
     <HomeProvider>
-      <Home></Home>
+      <Home />
     </HomeProvider>
   )
 }

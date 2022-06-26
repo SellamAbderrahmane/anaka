@@ -2,12 +2,12 @@ import React, { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { Navigate } from "react-router-dom"
 
-import { useAuth } from "../../modules"
+import { useUserAction } from "../../modules/contexts"
 import { useAppSelector } from "../../app/hooks"
 import { currentAuthState } from "../../modules/auth/state"
 
-function PrivateRoute({ element: Element, redirectTo = "/auth", roles, ...rest }: any) {
-  const auth = useAuth()
+function PrivateRoute({ element: Element, redirectTo = "/auth/signin", roles, ...rest }: any) {
+  const auth = useUserAction()
   const dispatch = useDispatch()
   const state = useAppSelector(currentAuthState)
 

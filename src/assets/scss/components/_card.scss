@@ -1,0 +1,172 @@
+.file-card {
+  &:hover,
+  &.card-active {
+    background: #f7fafd;
+    border-color: #4db0f90a;
+  }
+
+  .ant-card-actions {
+    background: #f6f6f67a;
+    border-top: none;
+  }
+}
+
+.archive-card {
+  text-align: center;
+  position: relative;
+  background: #f7fafd;
+  border: 1px solid #f7fafd;
+  transition: all 0.5s;
+  min-height: 150px;
+  // width: auto;
+  // width: 165px;
+  // max-width: 165px;
+
+  &:hover::before,
+  &.active::before {
+    content: " ";
+    background: #1b59ff1c;
+    border: 1px solid #1b59ff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 0;
+  }
+
+  .header {
+    padding: 0;
+  }
+
+  &:hover::after {
+    opacity: 1;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .archive-details {
+    margin: 1rem 0 0;
+  }
+
+  .create-at {
+    position: absolute;
+    overflow: hidden;
+    right: 10px;
+    bottom: 2px;
+    font-size: 12px;
+    color: #a6adb4;
+  }
+
+  .more {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 999;
+  }
+}
+
+.hoverable {
+  cursor: pointer;
+}
+
+nz-card {
+  &.center {
+    .ant-card-body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+
+  &.head-sticky {
+    .ant-card-head {
+      top: 0;
+      z-index: 999;
+      position: sticky;
+      background: white;
+    }
+  }
+}
+
+// nz-card.h-100 {
+//   // display: grid;
+//   // min-height: 100%;
+//   // grid-auto-rows: max-content;
+
+//   // .ant-card-body {
+//   //   overflow: hidden;
+
+//   //   &:hover {
+//   //     overflow: auto;
+//   //   }
+//   // }
+//   // height: 100%;
+//   // min-height: 100%;
+//   // overflow: hidden;
+
+//   // .ant-card-head {
+//   //   z-index: 999;
+//   //   position: relative;
+//   //   background: white;
+//   // }
+
+//   // .ant-card-body {
+//   //   height: inherit;
+//   //   &:hover {
+//   //     overflow: auto;
+//   //   }
+//   // }
+// }
+
+nz-card.h-100 {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+
+  .ant-card-body {
+    flex: auto;
+  }
+}
+
+.ant-card-hoverable {
+  &:hover {
+    transition: all 0.5s ease-out;
+  }
+}
+
+.card-hover {
+  border-color: #0091ea;
+  transition: all 0.5s ease-out;
+}
+
+.file-content-card {
+  display: grid;
+  min-height: 100%;
+  grid-template-rows: auto 1fr;
+
+  .ant-card-body {
+    text-align: center;
+    padding: 1px;
+    overflow: hidden;
+
+    ngx-doc-viewer {
+      height: 100%;
+    }
+
+    img {
+      max-width: 100%;
+    }
+  }
+}
+
+
+@media (max-width: $screen-sm) {
+  nz-card.h-100 {
+    .ant-card-body {
+      overflow: auto;
+    }
+  }
+}

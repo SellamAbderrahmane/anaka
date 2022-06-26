@@ -1,6 +1,6 @@
 import { AxiosClient, Status, ServerException } from "../axios.client"
 
-export class AuthRepository {
+export class UserRepository {
   http: AxiosClient
 
   constructor(http: AxiosClient) {
@@ -47,12 +47,18 @@ export class AuthRepository {
     }
   }
 
-  signIn({ username, password }: any): any {
+  signUp(user: any): any {
     return {
       username: "abderrahmane",
       email: "abderrahmane@test.com",
     }
   }
+
+  async subscribe(email: string) {
+    return new Promise((resolve, reject) => {
+      resolve(true)
+    })
+  }
 }
 
-export default AuthRepository
+export default UserRepository

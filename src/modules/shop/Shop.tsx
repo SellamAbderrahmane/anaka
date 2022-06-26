@@ -1,48 +1,58 @@
 import React, { Fragment, useEffect, useState } from "react"
 import Paginator from "react-hooks-paginator"
 
+import { ShopSidebar, ShopTopbar } from "./components"
 import Breadcrumb from "../../ui/components/Breadcrumb"
 
-import { ShopSidebar, ShopTopbar } from "./components"
-
+import { ShopState } from "./state"
+import { useShop } from "../contexts"
 import products from "../../data/products.json"
 import { ProductGridList } from "../../ui/components"
-import { getSortedProducts } from "../../utils"
+import Spinner from "../../ui/components/spinner/Spinner"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
 
-const ShopPage = () => {
-  const pageLimit = 15
+export const ShopPage = ({ pageLimit = 15 }: any) => {
+  const shop = useShop()
+  const dispatch = useAppDispatch()
+  const state = useAppSelector(ShopState)
 
   const [layout, setLayout] = useState("grid three-column")
+
+  const [filterType, setFilterType] = useState("")
+  const [filterValue, setFilterValue] = useState("")
 
   const [sortType, setSortType] = useState("")
   const [sortValue, setSortValue] = useState("")
 
-  const [filterSortType, setFilterSortType] = useState("")
-  const [filterSortValue, setFilterSortValue] = useState("")
-
   const [currentData, setCurrentData] = useState([])
 
-  const [sortedProducts, setSortedProducts] = useState([])
   const [offset, setOffset] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
 
-  const getSortParams = (sortType, sortValue) => {
-    setSortType(sortType)
-    setSortValue(sortValue)
+  const setFilterParams = (filterType, filterValue) => {
+    console.log(filterType, filterValue)
+
+    // setFilterType(filterType)
+    // setFilterValue(filterValue)
   }
 
-  const getFilterSortParams = (sortType, sortValue) => {
-    setFilterSortType(sortType)
-    setFilterSortValue(sortValue)
+  const setSortParams = (filterType, filterValue) => {
+    setSortType(filterType)
+    setSortValue(filterValue)
   }
 
   useEffect(() => {
-    let sortedProducts = getSortedProducts(products, sortType, sortValue)
-    const filterSortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue)
-    sortedProducts = filterSortedProducts
-    setSortedProducts(sortedProducts)
-    setCurrentData(sortedProducts.slice(offset, offset + pageLimit))
-  }, [offset, products, sortType, sortValue, filterSortType, filterSortValue])
+    dispatch(
+      shop.loadProducts({
+        currentPage,
+      })
+    )
+    // let sortedProducts = getSortedProducts(products, filterType, filterValue)
+    // const filterSortedProducts = getSortedProducts(sortedProducts, sortType, sortValue)
+    // sortedProducts = filterSortedProducts
+    // setSortedProducts(sortedProducts)
+    // setCurrentData(sortedProducts.slice(offset, offset + pageLimit))
+  }, [offset, products, filterType, filterValue, sortType, sortValue])
 
   return (
     <Fragment>
@@ -51,29 +61,31 @@ const ShopPage = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-3 order-2 order-lg-1">
-              <ShopSidebar products={products} getSortParams={getSortParams} />
+              <ShopSidebar products={products} getSortParams={setFilterParams} />
             </div>
             <div className="col-lg-9 order-1 order-lg-2">
               <ShopTopbar
                 getLayout={setLayout}
-                getFilterSortParams={getFilterSortParams}
+                getFilterSortParams={setSortParams}
                 productCount={products.length}
                 sortedProductCount={currentData.length}
               />
 
               <div className="shop-bottom-area mt-35">
-                <div className={`row ${layout ? layout : ""}`}>
-                  <ProductGridList products={currentData} spaceBottomClass="mb-25" />
-                </div>
+                <Spinner spinning={state.status === "loading"}>
+                  <div className={`row ${layout ? layout : ""}`}>
+                    <ProductGridList products={state.products} spaceBottomClass="mb-25" />
+                  </div>
+                </Spinner>
               </div>
 
               <div className="pro-pagination-style text-center mt-30">
                 <Paginator
-                  totalRecords={sortedProducts.length}
-                  pageLimit={pageLimit}
+                  totalRecords={state.pagination?.total}
+                  pageLimit={state.pagination?.limit}
                   pageNeighbours={2}
                   setOffset={setOffset}
-                  currentPage={currentPage}
+                  currentPage={state.pagination?.currentPage}
                   setCurrentPage={setCurrentPage}
                   pageContainerClass="mb-0 mt-0"
                   pagePrevText="«"

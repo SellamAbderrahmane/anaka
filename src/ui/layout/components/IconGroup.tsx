@@ -1,11 +1,29 @@
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import { configState } from "../../../app/config"
 import { useAppSelector } from "../../../app/hooks"
+import { currentAuthState } from "../../../modules/auth/state"
 import MenuCart from "../../components/MenuCart"
 
 const IconGroup = ({ currency, deleteFromCart }: any) => {
   const appState = useAppSelector(configState)
+  const authState = useAppSelector(currentAuthState)
+
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", (e) => {
+  //     console.log(e.target)
+  //     // if (concernedElement.contains(e.target)) {
+  //     //   console.log("clicked inside");
+  //     // } else {
+  //     //   console.log("clicked outside");
+  //     // }
+  //   })
+
+  //   return () => {
+  //     console.log("lllddd")
+  //     document.removeEventListener("mousedown", (e) => {})
+  //   }
+  // }, [])
 
   const handleClick = (e: any) => {
     e.currentTarget.nextSibling.classList.toggle("active")
@@ -37,12 +55,17 @@ const IconGroup = ({ currency, deleteFromCart }: any) => {
         </button>
         <div className="account-dropdown">
           <ul>
-            <li>
-              <Link to="/auth/signin">Login</Link>
-            </li>
-            <li>
-              <Link to="/auth/register">Register</Link>
-            </li>
+            {!authState.loggedIn && (
+              <>
+                <li>
+                  <Link to="/auth/signin">Login</Link>
+                </li>
+                <li>
+                  <Link to="/auth/register">Register</Link>
+                </li>
+              </>
+            )}
+
             <li>
               <Link to="/account">my account</Link>
             </li>

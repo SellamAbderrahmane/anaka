@@ -1,8 +1,9 @@
 import React, { useEffect } from "react"
 import { configState, loadConfig } from "./app/config"
 
-import { useAppDispatch, useAppSelector } from "./app/hooks"
 import AuthRoutes from "./modules"
+import Spinner from "./ui/components/spinner/Spinner"
+import { useAppDispatch, useAppSelector } from "./app/hooks"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -12,11 +13,11 @@ const App = () => {
     dispatch(loadConfig())
   }, [])
 
-  if (state.status === "loading") {
-    return <div>laoding</div>
-  }
-
-  return <AuthRoutes />
+  return (
+    <Spinner spinning={state.status === "loading"}>
+      <AuthRoutes />
+    </Spinner>
+  )
 }
 
 export default App

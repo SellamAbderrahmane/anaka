@@ -1,8 +1,9 @@
 import React, { useRef } from "react"
 import Swiper from "react-id-swiper"
 import { Link } from "react-router-dom"
+import Spinner from "../../../ui/components/spinner/Spinner"
 
-const HeroSliderOne = () => {
+const HeroSliderOne = ({ loading = false, heroSliderData = [] }: any) => {
   const ref = useRef(null)
 
   const goNext = () => {
@@ -42,31 +43,16 @@ const HeroSliderOne = () => {
     ),
   }
 
-  const heroSliderData = [
-    {
-      id: 1,
-      title: "Smart Products",
-      subtitle: "Winter Offer 2020 Collection",
-      image: "/assets/img/slider/single-slide-hm1-2.png",
-      url: "/shop-grid-standard",
-    },
-    {
-      id: 2,
-      title: "Smart Products",
-      subtitle: "Summer Offer 2020 Collection",
-      image: "/assets/img/slider/single-slide-1.png",
-      url: "/shop-grid-standard",
-    },
-  ]
-
   return (
     <div className="slider-area">
       <div className="slider-active nav-style-1">
-        <Swiper {...params} ref={ref}>
-          {heroSliderData.map((single, key) => {
-            return <SingleSlider data={single} key={key} />
-          })}
-        </Swiper>
+        <Spinner spinning={loading}>
+          <Swiper {...params} ref={ref}>
+            {heroSliderData.map((single, key) => {
+              return <SingleSlider data={single} key={key} />
+            })}
+          </Swiper>
+        </Spinner>
       </div>
     </div>
   )

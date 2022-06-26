@@ -1,4 +1,5 @@
 import React from "react"
+import { email, required, useForm } from "./form"
 
 const Subscribe = (props: any) => {
   return (
@@ -9,7 +10,7 @@ const Subscribe = (props: any) => {
             <div className="subscribe-style-3 text-center">
               <h2>Subscribe </h2>
               <p>Subscribe to our newsletter to receive news on update</p>
-              <SubscribeEmailForm />
+              <SubscribeEmailForm onsubmit={props.onSubscribe} />
             </div>
           </div>
         </div>
@@ -18,22 +19,39 @@ const Subscribe = (props: any) => {
   )
 }
 
-const SubscribeEmailForm = ({ status, message, onValidated }: any) => {
-  let email: any
-  const submit = () => {}
+const SubscribeEmailForm = ({ onsubmit }: any) => {
+  const { renderForm, isValid, getvalue } = useForm({
+    email: {
+      value: "",
+      type: "email",
+      name: "email",
+      validators: [required("Email required"), email("Mail format invalid")],
+      render: (onchange, input, form, index) => {
+        return (
+          <input
+            key={index}
+            type={input.type}
+            name={input.name}
+            className="email"
+            value={input.value}
+            onChange={onchange}
+            placeholder="Your Email Address"
+          />
+        )
+      },
+    },
+  })
+
+  const submit = () => {
+    if (isValid()) {
+      onsubmit(getvalue().email)
+    }
+  }
 
   return (
     <div className="subscribe-form-3">
       <div className="mc-form">
-        <div>
-          <input
-            className="email"
-            ref={(node) => (email = node)}
-            type="email"
-            placeholder="Your Email Address"
-            required
-          />
-        </div>
+        <div>{renderForm()}</div>
         <div className="clear-3">
           <button className="button" onClick={submit}>
             <i className="fa fa-long-arrow-right"></i>

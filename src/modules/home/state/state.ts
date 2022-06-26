@@ -2,43 +2,47 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState } from "../../../app/store"
 
 export interface HomeState {
-  repository?: any,
-  value: number
-  status?: "idle" | "loading" | "failed"
+  heroProducts: any[]
+  dailyProducts: any[]
+  status?: "idle" | "loading" | "failed" | "dailyLoading"
 }
 
 const initialState: HomeState = {
-  repository: null,
-  value: 0,
+  heroProducts: [],
+  dailyProducts: [],
   status: "idle",
 }
 
-export const counterSlice = createSlice({
+export const homeSlice = createSlice({
   name: "home",
   initialState,
   reducers: {
     loading: (state) => {
       state.status = "loading"
     },
-    increment: (state) => {
-      state.value += 1
+
+    dailyLoading: (state) => {
+      state.status = "dailyLoading"
     },
-    decrement: (state) => {
-      state.value -= 1
-    },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
+
+    heroProductsLoad: (state, action: PayloadAction<any>) => {
       state.status = "idle"
-      state.value += action.payload
+      state.heroProducts = action.payload
     },
-    incrementAsync: (state, action: PayloadAction<number>) => {
+
+    dailyProductsLoaded: (state, action: PayloadAction<any>) => {
       state.status = "idle"
-      state.value += action.payload
+      state.dailyProducts = action.payload
+    },
+
+    subscribeSuccess: (state) => {
+      state.status = "idle"
     },
   },
 })
 
-export const { loading, increment, decrement, incrementByAmount, incrementAsync } = counterSlice.actions
+export const { loading, heroProductsLoad, dailyLoading, dailyProductsLoaded, subscribeSuccess } = homeSlice.actions
 
-export const currentState = (state: RootState) => state.counter
+export const currentHomeState = (state: RootState) => state.home
 
-export default counterSlice.reducer
+export const homeReducer = homeSlice.reducer

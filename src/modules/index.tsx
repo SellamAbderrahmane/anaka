@@ -1,17 +1,18 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom"
 
-import Auth, { AuthProvider } from "./auth"
-import PrivateRoute from "../ui/components/PrivateRoute"
-import Layout from "../ui/layout/Layout"
-import { useAppSelector } from "../app/hooks"
 import { configState } from "../app/config"
-import Home from "./home/Home"
-import ShopPage from "./shop/Shop"
-import { Cart, Wishlist, Compare } from "./cart"
-import Contact from "./contact/Content"
-import Checkout from "./checkout/Checkout"
+import { useAppSelector } from "../app/hooks"
+
+import Home from "./home"
+import ShopPage from "./shop"
 import { Account } from "./user"
 import { Product } from "./product"
+import Contact from "./contact/Content"
+import Layout from "../ui/layout/Layout"
+import Checkout from "./checkout/Checkout"
+import Auth, { AuthProvider } from "./auth"
+import { Cart, Wishlist, Compare } from "./cart"
+import PrivateRoute from "../ui/components/PrivateRoute"
 
 export * from "./auth"
 
@@ -40,7 +41,7 @@ function AuthRoutes() {
           <Route path="checkout" element={<Checkout />} />
           <Route path="account" element={<Account />} />
           <Route path="product/:id" element={<Product />} />
-          <Route path="*" element={<Navigate to="/home" />} />
+          {/* <Route path="*" element={<Navigate to="/home" />} /> */}
         </Route>
         <Route path="auth/:page" element={<Auth />} />
         {/* <Route path="*" element={<Navigate to="/home" />} /> */}

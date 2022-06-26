@@ -1,25 +1,53 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import { useDispatch } from "react-redux"
+
+import { useUserAction } from "../../contexts"
+import { FormGroup, required, useForm } from "../../../ui/components/form"
 
 export const SignIn = () => {
+  const dispatch = useDispatch()
+  const auth = useUserAction()
+
+  const formgroup: FormGroup = {
+    email: {
+      name: "email",
+      placeholder: "Email",
+      validators: [required("Email required")],
+    },
+    password: {
+      name: "password",
+      placeholder: "Password",
+      validators: [required("Password required")],
+    },
+    rememberme: {
+      type: "checkbox",
+      name: "rememberme",
+      className: "pb-3",
+      label: "Remember me",
+    },
+  }
+
+  const { getvalue, renderForm, isValid } = useForm(formgroup)
+
+  const login = () => {
+    if (!isValid()) return
+
+    dispatch(auth.login(getvalue()))
+  }
+
+  const actions = () => {
+    return (
+      <div className="button-box">
+        <button onClick={login} disabled={!isValid()}>
+          <span>Login</span>
+        </button>
+      </div>
+    )
+  }
+
   return (
     <div className="login-form-container">
-      <div className="login-register-form">
-        <form>
-          <input type="text" name="user-name" placeholder="Username" />
-          <input type="password" name="user-password" placeholder="Password" />
-          <div className="button-box">
-            <div className="login-toggle-btn">
-              <input type="checkbox" />
-              <label className="ml-10">Remember me</label>
-              <Link to={process.env.PUBLIC_URL + "/"}>Forgot Password?</Link>
-            </div>
-            <button type="submit">
-              <span>Login</span>
-            </button>
-          </div>
-        </form>
-      </div>
+      <div className="login-register-form">{renderForm(actions)}</div>
     </div>
   )
 }
