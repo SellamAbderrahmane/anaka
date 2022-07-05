@@ -42,11 +42,7 @@ export const ShopPage = ({ pageLimit = 15 }: any) => {
   }
 
   useEffect(() => {
-    dispatch(
-      shop.loadProducts({
-        currentPage,
-      })
-    )
+    dispatch(shop.loadProducts({ currentPage }))
     // let sortedProducts = getSortedProducts(products, filterType, filterValue)
     // const filterSortedProducts = getSortedProducts(sortedProducts, sortType, sortValue)
     // sortedProducts = filterSortedProducts

@@ -8,7 +8,7 @@ export declare type FormGroup = { [key: string]: FORMITEM }
 export declare type Validator = (value: any, form: FormGroup) => string
 
 export interface FORMITEM {
-  type?: "text" | "select" | "checkbox" | "email"
+  type?: "text" | "select" | "checkbox" | "email" | "textarea"
   value?: any
   label?: any
   name: string
@@ -37,8 +37,8 @@ export const useForm = (formObj: FormGroup) => {
     }
   }
 
-  function renderForm(renderAction?: () => JSX.Element) {
-    return <Form form={form} onInputChange={onInputChange} renderAction={renderAction} />
+  function renderForm(renderAction?: () => JSX.Element, props: any = {}) {
+    return <Form form={form} onInputChange={onInputChange} renderAction={renderAction} {...props} />
   }
 
   const isInputFieldValid = useCallback(

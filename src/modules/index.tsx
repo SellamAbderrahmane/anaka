@@ -6,23 +6,33 @@ import { useAppSelector } from "../app/hooks"
 import Home from "./home"
 import ShopPage from "./shop"
 import { Account } from "./user"
-import { Product } from "./product"
+import Product from "./product/Product"
 import Contact from "./contact/Content"
 import Layout from "../ui/layout/Layout"
 import Checkout from "./checkout/Checkout"
 import Auth, { AuthProvider } from "./auth"
-import { Cart, Wishlist, Compare } from "./cart"
+import { Cart, Wishlist, Compare, CartProvider } from "./cart"
 import PrivateRoute from "../ui/components/PrivateRoute"
+import { currentCartState } from "./cart/state"
 
 export * from "./auth"
 
 function MainRoutes() {
   const appState = useAppSelector(configState)
+  const cartState = useAppSelector(currentCartState)
 
   return (
-    <Layout cartItems={appState.cartItems} wishItems={appState.wishItems}>
-      <Outlet />
-    </Layout>
+    <CartProvider>
+      <Layout
+        loggedIn={true}
+        currency={appState.currency}
+        cartItems={cartState.cartItems.length}
+        wishItems={cartState.wishItems.length}
+        compareItems={cartState.compareItems.length}
+      >
+        <Outlet />
+      </Layout>
+    </CartProvider>
   )
 }
 

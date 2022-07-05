@@ -1,3 +1,5 @@
+import { isEqual } from "lodash"
+
 // get products
 export const getProducts = (products, category, type, limit) => {
   const finalProducts = category
@@ -24,31 +26,46 @@ export const getProducts = (products, category, type, limit) => {
 
 // get product discount price
 export const getDiscountPrice = (price, discount) => {
-  return discount && discount > 0 ? price - price * (discount / 100) : null
+  return discount && discount > 0 ? price - price * (discount / 100) : 0
 }
 
 // get product cart quantity
-export const getProductCartQuantity = (cartItems, product, color, size) => {
-  let productInCart = cartItems.filter(
-    (single) =>
-      single.id === product.id &&
-      (single.selectedProductColor ? single.selectedProductColor === color : true) &&
-      (single.selectedProductSize ? single.selectedProductSize === size : true)
-  )[0]
-  if (cartItems.length >= 1 && productInCart) {
-    if (product.variation) {
-      return cartItems.filter(
-        (single) =>
-          single.id === product.id &&
-          single.selectedProductColor === color &&
-          single.selectedProductSize === size
-      )[0].quantity
-    } else {
-      return cartItems.filter((single) => product.id === single.id)[0].quantity
-    }
+export const getProductCartQuantity = (cartItems: any[], product: any, variants: any) => {
+  let cartProduct: any = null
+  if (!product.variation) {
+    cartProduct = cartItems.find((item) => item.id === product.id)
   } else {
-    return 0
+    cartProduct = cartItems.find((item) => {
+      return item.id === product.id && isEqual(item.variants, variants)
+    })
   }
+
+  if(!cartProduct || !cartProduct.quantity) return 0
+
+  return cartProduct.quantity
+
+
+  // let productInCart = cartItems.filter(
+  //   (single) =>
+  //     single.id === product.id &&
+  //     (single.selectedProductColor ? single.selectedProductColor === color : true) &&
+  //     (single.selectedProductSize ? single.selectedProductSize === size : true)
+  // )[0]
+
+  // if (cartItems.length >= 1 && productInCart) {
+  //   if (product.variation) {
+  //     return cartItems.filter(
+  //       (single) =>
+  //         single.id === product.id &&
+  //         single.selectedProductColor === color &&
+  //         single.selectedProductSize === size
+  //     )[0].quantity
+  //   } else {
+  //     return cartItems.filter((single) => product.id === single.id)[0].quantity
+  //   }
+  // } else {
+  //   return 0
+  // }
 }
 
 //get products based on category

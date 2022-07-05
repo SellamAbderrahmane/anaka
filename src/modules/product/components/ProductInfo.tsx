@@ -2,6 +2,8 @@ import React, { Fragment, useState } from "react"
 import { getProductCartQuantity } from "../../../utils"
 import { ProductRating } from "../../../ui/components"
 import { Link } from "react-router-dom"
+import { AddToCart } from "../../cart/others/AddToCart"
+import { ProductVariants } from "./ProductVariants"
 
 export const ProductInfo = ({
   product,
@@ -20,23 +22,25 @@ export const ProductInfo = ({
   addToWishlist,
   addToCompare,
 }: any) => {
-  const [selectedProductColor, setSelectedProductColor] = useState(
-    product.variation ? product.variation[0].color : ""
-  )
-  const [selectedProductSize, setSelectedProductSize] = useState(
-    product.variation ? product.variation[0].size[0].name : ""
-  )
-  const [productStock, setProductStock] = useState(
-    product.variation ? product.variation[0].size[0].stock : product.stock
-  )
-  const [quantityCount, setQuantityCount] = useState(1)
+  const [variants, setVariants] = useState({})
 
-  const productCartQty = getProductCartQuantity(
-    cartItems,
-    product,
-    selectedProductColor,
-    selectedProductSize
-  )
+  // const [selectedProductColor, setSelectedProductColor] = useState(
+  //   product.variation ? product.variation[0].color : ""
+  // )
+  // const [selectedProductSize, setSelectedProductSize] = useState(
+  //   product.variation ? product.variation[0].size[0].name : ""
+  // )
+  // const [productStock, setProductStock] = useState(
+  //   product.variation ? product.variation[0].size[0].stock : product.stock
+  // )
+  // const [quantityCount, setQuantityCount] = useState(1)
+
+  // const productCartQty = getProductCartQuantity(
+  //   cartItems,
+  //   product,
+  //   selectedProductColor,
+  //   selectedProductSize
+  // )
 
   return (
     <div className="product-details-content ml-70">
@@ -51,20 +55,21 @@ export const ProductInfo = ({
           <span>{currency.currencySymbol + finalProductPrice} </span>
         )}
       </div>
-      {product.rating && product.rating > 0 ? (
+      {product.rating && product.rating > 0 && (
         <div className="pro-details-rating-wrap">
           <div className="pro-details-rating">
             <ProductRating ratingValue={product.rating} />
           </div>
         </div>
-      ) : (
-        ""
       )}
+
       <div className="pro-details-list">
         <p>{product.shortDescription}</p>
       </div>
 
-      {product.variation ? (
+      <ProductVariants product={product} onVariantsChange={setVariants} />
+
+      {/* {product.variation && (
         <div className="pro-details-size-color">
           <div className="pro-details-color-wrap">
             <span>Color</span>
@@ -118,9 +123,8 @@ export const ProductInfo = ({
             </div>
           </div>
         </div>
-      ) : (
-        ""
-      )}
+      )} */}
+
       {product.affiliateLink ? (
         <div className="pro-details-quality">
           <div className="pro-details-cart btn-hover ml-0">
@@ -130,69 +134,71 @@ export const ProductInfo = ({
           </div>
         </div>
       ) : (
-        <div className="pro-details-quality">
-          <div className="cart-plus-minus">
-            <button
-              onClick={() => setQuantityCount(quantityCount > 1 ? quantityCount - 1 : 1)}
-              className="dec qtybutton"
-            >
-              -
-            </button>
-            <input className="cart-plus-minus-box" type="text" value={quantityCount} readOnly />
-            <button
-              onClick={() =>
-                setQuantityCount(
-                  quantityCount < productStock - productCartQty ? quantityCount + 1 : quantityCount
-                )
-              }
-              className="inc qtybutton"
-            >
-              +
-            </button>
-          </div>
-          <div className="pro-details-cart btn-hover">
-            {productStock && productStock > 0 ? (
-              <button
-                onClick={() =>
-                  addToCart(
-                    product,
-                    addToast,
-                    quantityCount,
-                    selectedProductColor,
-                    selectedProductSize
-                  )
-                }
-                disabled={productCartQty >= productStock}
-              >
-                Add To Cart
-              </button>
-            ) : (
-              <button disabled>Out of Stock</button>
-            )}
-          </div>
-          <div className="pro-details-wishlist">
-            <button
-              className={wishlistItem !== undefined ? "active" : ""}
-              disabled={wishlistItem !== undefined}
-              title={wishlistItem !== undefined ? "Added to wishlist" : "Add to wishlist"}
-              onClick={() => addToWishlist(product, addToast)}
-            >
-              <i className="pe-7s-like" />
-            </button>
-          </div>
-          <div className="pro-details-compare">
-            <button
-              className={compareItem !== undefined ? "active" : ""}
-              disabled={compareItem !== undefined}
-              title={compareItem !== undefined ? "Added to compare" : "Add to compare"}
-              onClick={() => addToCompare(product, addToast)}
-            >
-              <i className="pe-7s-shuffle" />
-            </button>
-          </div>
-        </div>
+        <AddToCart product={product} variants={variants}/>
+        // <div className="pro-details-quality">
+        //   <div className="cart-plus-minus">
+        //     <button
+        //       onClick={() => setQuantityCount(quantityCount > 1 ? quantityCount - 1 : 1)}
+        //       className="dec qtybutton"
+        //     >
+        //       -
+        //     </button>
+        //     <input className="cart-plus-minus-box" type="text" value={quantityCount} readOnly />
+        //     <button
+        //       onClick={() =>
+        //         setQuantityCount(
+        //           quantityCount < productStock - productCartQty ? quantityCount + 1 : quantityCount
+        //         )
+        //       }
+        //       className="inc qtybutton"
+        //     >
+        //       +
+        //     </button>
+        //   </div>
+        //   <div className="pro-details-cart btn-hover">
+        //     {productStock && productStock > 0 ? (
+        //       <button
+        //         onClick={() =>
+        //           addToCart(
+        //             product,
+        //             addToast,
+        //             quantityCount,
+        //             selectedProductColor,
+        //             selectedProductSize
+        //           )
+        //         }
+        //         disabled={productCartQty >= productStock}
+        //       >
+        //         Add To Cart
+        //       </button>
+        //     ) : (
+        //       <button disabled>Out of Stock</button>
+        //     )}
+        //   </div>
+        //   <div className="pro-details-wishlist">
+        //     <button
+        //       className={wishlistItem !== undefined ? "active" : ""}
+        //       disabled={wishlistItem !== undefined}
+        //       title={wishlistItem !== undefined ? "Added to wishlist" : "Add to wishlist"}
+        //       onClick={() => addToWishlist(product, addToast)}
+        //     >
+        //       <i className="pe-7s-like" />
+        //     </button>
+        //   </div>
+        //   <div className="pro-details-compare">
+        //     <button
+        //       className={compareItem !== undefined ? "active" : ""}
+        //       disabled={compareItem !== undefined}
+        //       title={compareItem !== undefined ? "Added to compare" : "Add to compare"}
+        //       onClick={() => addToCompare(product, addToast)}
+        //     >
+        //       <i className="pe-7s-shuffle" />
+        //     </button>
+        //   </div>
+        // </div>
       )}
-      {product.category ? (
+
+      {product.category && (
         <div className="pro-details-meta">
           <span>Categories :</span>
           <ul>
@@ -205,10 +211,9 @@ export const ProductInfo = ({
             })}
           </ul>
         </div>
-      ) : (
-        ""
       )}
-      {product.tag ? (
+
+      {product.tag && (
         <div className="pro-details-meta">
           <span>Tags :</span>
           <ul>
@@ -221,8 +226,6 @@ export const ProductInfo = ({
             })}
           </ul>
         </div>
-      ) : (
-        ""
       )}
 
       <div className="pro-details-social">

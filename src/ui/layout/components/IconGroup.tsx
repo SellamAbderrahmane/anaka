@@ -1,14 +1,8 @@
-import React, { useEffect, useRef } from "react"
+import React from "react"
 import { Link } from "react-router-dom"
-import { configState } from "../../../app/config"
-import { useAppSelector } from "../../../app/hooks"
-import { currentAuthState } from "../../../modules/auth/state"
-import MenuCart from "../../components/MenuCart"
+import MenuCart from "../../../modules/cart/components/MenuCart"
 
-const IconGroup = ({ currency, deleteFromCart }: any) => {
-  const appState = useAppSelector(configState)
-  const authState = useAppSelector(currentAuthState)
-
+const IconGroup = ({ currency, loggedIn, cartItems, wishItems, compareItems }: any) => {
   // useEffect(() => {
   //   document.addEventListener("mousedown", (e) => {
   //     console.log(e.target)
@@ -55,7 +49,7 @@ const IconGroup = ({ currency, deleteFromCart }: any) => {
         </button>
         <div className="account-dropdown">
           <ul>
-            {!authState.loggedIn && (
+            {!loggedIn && (
               <>
                 <li>
                   <Link to="/auth/signin">Login</Link>
@@ -75,29 +69,29 @@ const IconGroup = ({ currency, deleteFromCart }: any) => {
       <div className="same-style header-compare">
         <Link to={"/compare"}>
           <i className="pe-7s-shuffle" />
-          <span className="count-style">{appState.cartItems}</span>
+          <span className="count-style">{compareItems}</span>
         </Link>
       </div>
 
       <div className="same-style header-wishlist">
         <Link to={"/wishlist"}>
           <i className="pe-7s-like" />
-          <span className="count-style">{appState.wishItems}</span>
+          <span className="count-style">{wishItems}</span>
         </Link>
       </div>
 
       <div className="same-style cart-wrap d-none d-lg-block">
         <button className="icon-cart" onClick={(e) => handleClick(e)}>
           <i className="pe-7s-shopbag" />
-          <span className="count-style">{appState.cartItems}</span>
+          <span className="count-style">{cartItems}</span>
         </button>
-        <MenuCart cartData={[]} currency={currency} deleteFromCart={deleteFromCart} />
+        <MenuCart currency={currency} />
       </div>
 
       <div className="same-style cart-wrap d-block d-lg-none">
         <Link className="icon-cart" to={"/cart"}>
           <i className="pe-7s-shopbag" />
-          <span className="count-style">{appState.cartItems}</span>
+          <span className="count-style">{cartItems}</span>
         </Link>
       </div>
 

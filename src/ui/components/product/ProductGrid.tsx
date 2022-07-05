@@ -67,19 +67,15 @@ export const ProductGridSingle = ({
           <div className="product-img">
             <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
               <img className="default-img" src={process.env.PUBLIC_URL + product.image[0]} alt="" />
-              {product.image.length > 1 ? (
+              {product.image.length > 1 && (
                 <img className="hover-img" src={process.env.PUBLIC_URL + product.image[1]} alt="" />
-              ) : (
-                ""
               )}
             </Link>
-            {product.discount || product.new ? (
+            {(product.discount || product.new) && (
               <div className="product-img-badges">
                 {product.discount ? <span className="pink">-{product.discount}%</span> : ""}
                 {product.new ? <span className="purple">New</span> : ""}
               </div>
-            ) : (
-              ""
             )}
 
             <div className="product-action">
@@ -95,8 +91,7 @@ export const ProductGridSingle = ({
               <div className="pro-same-action pro-cart">
                 {product.affiliateLink ? (
                   <a href={product.affiliateLink} rel="noopener noreferrer" target="_blank">
-                    {" "}
-                    Buy now{" "}
+                    Buy now
                   </a>
                 ) : product.variation && product.variation.length >= 1 ? (
                   <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>Select Option</Link>
@@ -106,8 +101,7 @@ export const ProductGridSingle = ({
                     disabled={cartItem !== undefined && cartItem.quantity > 0}
                     title={cartItem !== undefined ? "Added to cart" : "Add to cart"}
                   >
-                    {" "}
-                    <i className="pe-7s-cart"></i>{" "}
+                    <i className="pe-7s-cart"></i>
                     {cartItem !== undefined && cartItem.quantity > 0 ? "Added" : "Add to cart"}
                   </button>
                 ) : (
@@ -135,7 +129,7 @@ export const ProductGridSingle = ({
             <div className="product-price">
               {discountedPrice !== null ? (
                 <Fragment>
-                  <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}
+                  <span>{currency.currencySymbol + finalDiscountedPrice}</span>
                   <span className="old">{currency.currencySymbol + finalProductPrice}</span>
                 </Fragment>
               ) : (

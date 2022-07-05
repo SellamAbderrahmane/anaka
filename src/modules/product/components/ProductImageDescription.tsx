@@ -1,4 +1,5 @@
 import { getDiscountPrice } from "../../../utils"
+import { useToasts } from "react-toast-notifications";
 import ProductImageGallery from "./ProductImageGallery"
 import ProductInfo from "./ProductInfo"
 
@@ -7,15 +8,12 @@ const ProductImageDescription = ({
   spaceBottomClass,
   product,
   currency,
-  cartItems,
   wishlistItems = [],
   compareItems = [],
 }: any) => {
   const wishlistItem = wishlistItems.filter((wishlistItem) => wishlistItem.id === product.id)[0]
   const compareItem = compareItems.filter((compareItem) => compareItem.id === product.id)[0]
-  const addToast = () => {
-
-  }
+  const { addToast } = useToasts();
 
   const discountedPrice = getDiscountPrice(product.price, product.discount)
   const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2)
@@ -37,7 +35,6 @@ const ProductImageDescription = ({
               currency={currency}
               finalDiscountedPrice={finalDiscountedPrice}
               finalProductPrice={finalProductPrice}
-              cartItems={cartItems}
               wishlistItem={wishlistItem}
               compareItem={compareItem}
               addToast={addToast}

@@ -59,6 +59,14 @@ export class UserRepository {
       resolve(true)
     })
   }
+
+  async contactSubscribe(data: any) {
+    return new Promise((resolve, reject) => {
+      console.log(data);
+      
+      resolve(true)
+    })
+  }
 }
 
 export default UserRepository

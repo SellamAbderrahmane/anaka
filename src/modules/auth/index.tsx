@@ -20,7 +20,7 @@ export default function AuthInit() {
   const { page = "signin" } = useParams()
 
   return (
-    <Layout cartItems={[]} wishItems={[]}>
+    <Layout cartItems={0} wishItems={0} loggedIn={false}>
       <AuthProvider>
         <Authentication page={page} />
       </AuthProvider>

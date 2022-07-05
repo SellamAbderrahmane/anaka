@@ -67,19 +67,16 @@ export const ProductGridListSingle = ({
           <div className="product-img">
             <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
               <img className="default-img" src={process.env.PUBLIC_URL + product.image[0]} alt="" />
-              {product.image.length > 1 ? (
+              {product.image.length > 1 && (
                 <img className="hover-img" src={process.env.PUBLIC_URL + product.image[1]} alt="" />
-              ) : (
-                ""
               )}
             </Link>
-            {product.discount || product.new ? (
+
+            {(product.discount || product.new) && (
               <div className="product-img-badges">
                 {product.discount ? <span className="pink">-{product.discount}%</span> : ""}
                 {product.new ? <span className="purple">New</span> : ""}
               </div>
-            ) : (
-              ""
             )}
 
             <div className="product-action">
@@ -95,8 +92,7 @@ export const ProductGridListSingle = ({
               <div className="pro-same-action pro-cart">
                 {product.affiliateLink ? (
                   <a href={product.affiliateLink} rel="noopener noreferrer" target="_blank">
-                    {" "}
-                    Buy now{" "}
+                    Buy now
                   </a>
                 ) : product.variation && product.variation.length >= 1 ? (
                   <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>Select Option</Link>
@@ -106,8 +102,7 @@ export const ProductGridListSingle = ({
                     disabled={cartItem !== undefined && cartItem.quantity > 0}
                     title={cartItem !== undefined ? "Added to cart" : "Add to cart"}
                   >
-                    {" "}
-                    <i className="pe-7s-cart"></i>{" "}
+                    <i className="pe-7s-cart"></i>
                     {cartItem !== undefined && cartItem.quantity > 0 ? "Added" : "Add to cart"}
                   </button>
                 ) : (
@@ -127,17 +122,15 @@ export const ProductGridListSingle = ({
             <h3>
               <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>{product.name}</Link>
             </h3>
-            {product.rating && product.rating > 0 ? (
+            {product.rating && product.rating > 0 && (
               <div className="product-rating">
                 <ProductRating ratingValue={product.rating} />
               </div>
-            ) : (
-              ""
             )}
             <div className="product-price">
               {discountedPrice !== null ? (
                 <Fragment>
-                  <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}
+                  <span>{currency.currencySymbol + finalDiscountedPrice}</span>
                   <span className="old">{currency.currencySymbol + finalProductPrice}</span>
                 </Fragment>
               ) : (
@@ -157,23 +150,19 @@ export const ProductGridListSingle = ({
                       src={process.env.PUBLIC_URL + product.image[0]}
                       alt=""
                     />
-                    {product.image.length > 1 ? (
+                    {product.image.length > 1 && (
                       <img
                         className="hover-img img-fluid"
                         src={process.env.PUBLIC_URL + product.image[1]}
                         alt=""
                       />
-                    ) : (
-                      ""
                     )}
                   </Link>
-                  {product.discount || product.new ? (
+                  {(product.discount || product.new) && (
                     <div className="product-img-badges">
                       {product.discount ? <span className="pink">-{product.discount}%</span> : ""}
                       {product.new ? <span className="purple">New</span> : ""}
                     </div>
-                  ) : (
-                    ""
                   )}
                 </div>
               </div>
@@ -186,30 +175,28 @@ export const ProductGridListSingle = ({
                 <div className="product-list-price">
                   {discountedPrice !== null ? (
                     <Fragment>
-                      <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}
+                      <span>{currency.currencySymbol + finalDiscountedPrice}</span>
                       <span className="old">{currency.currencySymbol + finalProductPrice}</span>
                     </Fragment>
                   ) : (
                     <span>{currency.currencySymbol + finalProductPrice} </span>
                   )}
                 </div>
-                {product.rating && product.rating > 0 ? (
+                {product.rating && product.rating > 0 && (
                   <div className="rating-review">
                     <div className="product-list-rating">
                       <ProductRating ratingValue={product.rating} />
                     </div>
                   </div>
-                ) : (
-                  ""
                 )}
-                {product.shortDescription ? <p>{product.shortDescription}</p> : ""}
+
+                {product.shortDescription && <p>{product.shortDescription}</p>}
 
                 <div className="shop-list-actions d-flex align-items-center">
                   <div className="shop-list-btn btn-hover">
                     {product.affiliateLink ? (
                       <a href={product.affiliateLink} rel="noopener noreferrer" target="_blank">
-                        {" "}
-                        Buy now{" "}
+                        Buy now
                       </a>
                     ) : product.variation && product.variation.length >= 1 ? (
                       <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>
@@ -221,8 +208,7 @@ export const ProductGridListSingle = ({
                         disabled={cartItem !== undefined && cartItem.quantity > 0}
                         title={cartItem !== undefined ? "Added to cart" : "Add to cart"}
                       >
-                        {" "}
-                        <i className="pe-7s-cart"></i>{" "}
+                        <i className="pe-7s-cart"></i>
                         {cartItem !== undefined && cartItem.quantity > 0 ? "Added" : "Add to cart"}
                       </button>
                     ) : (

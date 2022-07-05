@@ -1,7 +1,57 @@
-import React, { Fragment, useState } from "react"
+import React, { Fragment } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { configState } from "../../app/config"
+import { useAppSelector } from "../../app/hooks"
+import { UserRepository } from "../../data"
 import Breadcrumb from "../../ui/components/Breadcrumb"
+import { email, required, useForm } from "../../ui/components/form"
+import Spinner from "../../ui/components/spinner/Spinner"
+import { Contactcontext, useContact } from "../contexts"
+import { contactActions, contactState } from "./state"
 
 export const Contact = ({ location }: any) => {
+  const dispatch = useDispatch()
+
+  const actions = useContact()
+  const config = useAppSelector(configState)
+  const currentState = useAppSelector(contactState)
+
+  const { getvalue, renderForm, isValid } = useForm({
+    name: {
+      span: 6,
+      name: "name",
+      placeholder: "Name",
+      validators: [required("Name required")],
+    },
+    email: {
+      span: 6,
+      name: "email",
+      placeholder: "Email",
+      validators: [required("Email required"), email("Email format invalid")],
+    },
+    subject: {
+      name: "subject",
+      placeholder: "Subject",
+      validators: [required("Subject required")],
+    },
+    message: {
+      type: "textarea",
+      name: "message",
+      placeholder: "Your message",
+      validators: [required("Message required")],
+    },
+  })
+
+  const onSubmit = () => {
+    if (!isValid()) return
+    dispatch(actions.subscribe(getvalue()))
+  }
+
+  const FormActions = () => (
+    <button className="submit" type="submit" onClick={onSubmit}>
+      SEND
+    </button>
+  )
 
   return (
     <Fragment>
@@ -20,8 +70,8 @@ export const Contact = ({ location }: any) => {
                     <i className="fa fa-phone" />
                   </div>
                   <div className="contact-info-dec">
-                    <p>+012 345 678 102</p>
-                    <p>+012 345 678 102</p>
+                    <p>{config.storeinfo?.tel}</p>
+                    <p>{config.storeinfo?.tel}</p>
                   </div>
                 </div>
                 <div className="single-contact-info">
@@ -30,10 +80,10 @@ export const Contact = ({ location }: any) => {
                   </div>
                   <div className="contact-info-dec">
                     <p>
-                      <a href="mailto:yourname@email.com">yourname@email.com</a>
+                      <a href="mailto:yourname@email.com">{config.storeinfo.email}</a>
                     </p>
                     <p>
-                      <a href="https://yourwebsitename.com">yourwebsitename.com</a>
+                      <a href="https://yourwebsitename.com">{config.storeinfo.website}</a>
                     </p>
                   </div>
                 </div>
@@ -42,8 +92,8 @@ export const Contact = ({ location }: any) => {
                     <i className="fa fa-map-marker" />
                   </div>
                   <div className="contact-info-dec">
-                    <p>Address goes here, </p>
-                    <p>street, Crossroad 123.</p>
+                    <p>{config.storeinfo.address} </p>
+                    <p>{config.storeinfo.street}</p>
                   </div>
                 </div>
                 <div className="contact-social text-center">
@@ -79,31 +129,16 @@ export const Contact = ({ location }: any) => {
               </div>
             </div>
             <div className="col-lg-8 col-md-7">
-              <div className="contact-form">
-                <div className="contact-title mb-30">
-                  <h2>Get In Touch</h2>
-                </div>
-                <form className="contact-form-style">
-                  <div className="row">
-                    <div className="col-lg-6">
-                      <input name="name" placeholder="Name*" type="text" />
-                    </div>
-                    <div className="col-lg-6">
-                      <input name="email" placeholder="Email*" type="email" />
-                    </div>
-                    <div className="col-lg-12">
-                      <input name="subject" placeholder="Subject*" type="text" />
-                    </div>
-                    <div className="col-lg-12">
-                      <textarea name="message" placeholder="Your Message*" defaultValue={""} />
-                      <button className="submit" type="submit">
-                        SEND
-                      </button>
-                    </div>
+              <Spinner spinning={currentState.status === "loading"}>
+                <div className="contact-form">
+                  <div className="contact-title mb-30">
+                    <h2>Get In Touch</h2>
                   </div>
-                </form>
-                <p className="form-message" />
-              </div>
+                  {renderForm(FormActions, {
+                    className: "contact-form-style",
+                  })}
+                </div>
+              </Spinner>
             </div>
           </div>
         </div>
@@ -112,4 +147,17 @@ export const Contact = ({ location }: any) => {
   )
 }
 
-export default Contact
+export default (props: any) => {
+  function ContactProvider({ children }: any) {
+    const config = useSelector(configState)
+    const actions = contactActions(new UserRepository(config.http))
+
+    return <Contactcontext.Provider value={actions}>{children}</Contactcontext.Provider>
+  }
+
+  return (
+    <ContactProvider>
+      <Contact />
+    </ContactProvider>
+  )
+}

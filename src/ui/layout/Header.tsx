@@ -4,7 +4,7 @@ import IconGroup from "./components/IconGroup"
 import Logo from "./components/Logo"
 import NavMenu from "./components/NavMenu"
 
-const Header = ({ top }: any) => {
+const Header = ({ top, currency, loggedIn, cartItems, wishItems, compareItems }: any) => {
   const [scroll, setScroll] = useState(0)
   const [headerTop, setHeaderTop] = useState(0)
 
@@ -23,7 +23,7 @@ const Header = ({ top }: any) => {
 
   return (
     <header className="header-area clearfix">
-      <div className='d-none d-lg-block header-top-area'>
+      <div className="d-none d-lg-block header-top-area">
         <div className="container">
           <HeaderTop />
         </div>
@@ -41,7 +41,13 @@ const Header = ({ top }: any) => {
               <NavMenu strings={{}} />
             </div>
             <div className="col-xl-2 col-lg-2 col-md-6 col-8">
-              <IconGroup />
+              <IconGroup
+                currency={currency}
+                loggedIn={loggedIn}
+                cartItems={cartItems}
+                wishItems={wishItems}
+                compareItems={compareItems}
+              />
             </div>
           </div>
         </div>

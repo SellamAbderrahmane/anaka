@@ -21,7 +21,7 @@ export const ProductImageGallery = ({ product }: any) => {
 
   // swiper slider settings
   const gallerySwiperParams = {
-    getSwiper: getGallerySwiper
+    getSwiper: getGallerySwiper,
   }
 
   const thumbnailSwiperParams = {
@@ -52,14 +52,13 @@ export const ProductImageGallery = ({ product }: any) => {
   return (
     <Fragment>
       <div className="product-large-image-wrapper">
-        {product.discount || product.new ? (
+        {(product.discount || product.new) && (
           <div className="product-img-badges">
             {product.discount ? <span className="pink">-{product.discount}%</span> : ""}
             {product.new ? <span className="purple">New</span> : ""}
           </div>
-        ) : (
-          ""
         )}
+
         <LightgalleryProvider>
           <Swiper spaceBetween={10} loopedSlides={4} effect="fade" loop>
             {product.image &&
