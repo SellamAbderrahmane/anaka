@@ -26,7 +26,7 @@ export const Spinner: React.FC<SpinnerProps> = (props) => {
         }),
       }}
     >
-      {children}
+      {!spinning && children}
     </LoadingOverlay>
   )
 }

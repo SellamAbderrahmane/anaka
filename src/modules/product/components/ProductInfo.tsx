@@ -1,211 +1,84 @@
-import React, { Fragment, useState } from "react"
-import { getProductCartQuantity } from "../../../utils"
+import React, { Fragment, useCallback, useState } from "react"
+import { getDiscountPrice, getProductPrice, getProductVariation } from "../../../utils"
 import { ProductRating } from "../../../ui/components"
 import { Link } from "react-router-dom"
 import { AddToCart } from "../../cart/others/AddToCart"
 import { ProductVariants } from "./ProductVariants"
 
-export const ProductInfo = ({
-  product,
-  discountedPrice,
-  currency = {
-    currencyRate: 12,
-    currencySymbol: "$",
-  },
-  finalDiscountedPrice,
-  finalProductPrice,
-  cartItems,
-  wishlistItem,
-  compareItem,
-  addToast,
-  addToCart,
-  addToWishlist,
-  addToCompare,
-}: any) => {
+export const ProductInfo = ({ product, currency, productVariants }: any) => {
   const [variants, setVariants] = useState({})
 
-  // const [selectedProductColor, setSelectedProductColor] = useState(
-  //   product.variation ? product.variation[0].color : ""
-  // )
-  // const [selectedProductSize, setSelectedProductSize] = useState(
-  //   product.variation ? product.variation[0].size[0].name : ""
-  // )
-  // const [productStock, setProductStock] = useState(
-  //   product.variation ? product.variation[0].size[0].stock : product.stock
-  // )
-  // const [quantityCount, setQuantityCount] = useState(1)
+  const variation = getProductVariation(variants, productVariants)
+  const productPrice = getProductPrice(product.price, variation, currency)
+  const finalDiscountedPrice = getDiscountPrice(productPrice, product.discount, currency)
 
-  // const productCartQty = getProductCartQuantity(
-  //   cartItems,
-  //   product,
-  //   selectedProductColor,
-  //   selectedProductSize
-  // )
+  const onVariantsChange = useCallback((groupId: any, option: any) => {
+    setVariants((old) => {
+      return {
+        ...old,
+        [groupId]: option.id,
+      }
+    })
+  }, [])
 
   return (
-    <div className="product-details-content ml-70">
+    <div className='product-details-content ml-70'>
       <h2>{product.name}</h2>
-      <div className="product-details-price">
-        {discountedPrice !== null ? (
+      <div className='product-details-price'>
+        {finalDiscountedPrice ? (
           <Fragment>
-            <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}
-            <span className="old">{currency.currencySymbol + finalProductPrice}</span>
+            <span>{currency.currencySymbol + finalDiscountedPrice}</span>
+            <span className='old'>{currency.currencySymbol + productPrice}</span>
           </Fragment>
         ) : (
-          <span>{currency.currencySymbol + finalProductPrice} </span>
+          <span>{currency.currencySymbol + productPrice}</span>
         )}
       </div>
+
       {product.rating && product.rating > 0 && (
-        <div className="pro-details-rating-wrap">
-          <div className="pro-details-rating">
+        <div className='pro-details-rating-wrap'>
+          <div className='pro-details-rating'>
             <ProductRating ratingValue={product.rating} />
           </div>
         </div>
       )}
 
-      <div className="pro-details-list">
+      <div className='pro-details-list'>
         <p>{product.shortDescription}</p>
       </div>
 
-      <ProductVariants product={product} onVariantsChange={setVariants} />
-
-      {/* {product.variation && (
-        <div className="pro-details-size-color">
-          <div className="pro-details-color-wrap">
-            <span>Color</span>
-            <div className="pro-details-color-content">
-              {product.variation.map((single, key) => {
-                return (
-                  <label className={`pro-details-color-content--single ${single.color}`} key={key}>
-                    <input
-                      type="radio"
-                      value={single.color}
-                      name="product-color"
-                      checked={single.color === selectedProductColor}
-                      onChange={() => {
-                        setSelectedProductColor(single.color)
-                        setSelectedProductSize(single.size[0].name)
-                        setProductStock(single.size[0].stock)
-                        setQuantityCount(1)
-                      }}
-                    />
-                    <span className="checkmark"></span>
-                  </label>
-                )
-              })}
-            </div>
-          </div>
-          <div className="pro-details-size">
-            <span>Size</span>
-            <div className="pro-details-size-content">
-              {product.variation &&
-                product.variation.map((single) => {
-                  return single.color === selectedProductColor
-                    ? single.size.map((singleSize, key) => {
-                        return (
-                          <label className={`pro-details-size-content--single`} key={key}>
-                            <input
-                              type="radio"
-                              value={singleSize.name}
-                              checked={singleSize.name === selectedProductSize}
-                              onChange={() => {
-                                setSelectedProductSize(singleSize.name)
-                                setProductStock(singleSize.stock)
-                                setQuantityCount(1)
-                              }}
-                            />
-                            <span className="size-name">{singleSize.name}</span>
-                          </label>
-                        )
-                      })
-                    : ""
-                })}
-            </div>
-          </div>
-        </div>
-      )} */}
+      <ProductVariants product={product} onVariantsChange={onVariantsChange} />
 
       {product.affiliateLink ? (
-        <div className="pro-details-quality">
-          <div className="pro-details-cart btn-hover ml-0">
-            <a href={product.affiliateLink} rel="noopener noreferrer" target="_blank">
+        <div className='pro-details-quality'>
+          <div className='pro-details-cart btn-hover ml-0'>
+            <a href={product.affiliateLink} rel='noopener noreferrer' target='_blank'>
               Buy Now
             </a>
           </div>
         </div>
       ) : (
-        <AddToCart product={product} variants={variants}/>
-        // <div className="pro-details-quality">
-        //   <div className="cart-plus-minus">
-        //     <button
-        //       onClick={() => setQuantityCount(quantityCount > 1 ? quantityCount - 1 : 1)}
-        //       className="dec qtybutton"
-        //     >
-        //       -
-        //     </button>
-        //     <input className="cart-plus-minus-box" type="text" value={quantityCount} readOnly />
-        //     <button
-        //       onClick={() =>
-        //         setQuantityCount(
-        //           quantityCount < productStock - productCartQty ? quantityCount + 1 : quantityCount
-        //         )
-        //       }
-        //       className="inc qtybutton"
-        //     >
-        //       +
-        //     </button>
-        //   </div>
-        //   <div className="pro-details-cart btn-hover">
-        //     {productStock && productStock > 0 ? (
-        //       <button
-        //         onClick={() =>
-        //           addToCart(
-        //             product,
-        //             addToast,
-        //             quantityCount,
-        //             selectedProductColor,
-        //             selectedProductSize
-        //           )
-        //         }
-        //         disabled={productCartQty >= productStock}
-        //       >
-        //         Add To Cart
-        //       </button>
-        //     ) : (
-        //       <button disabled>Out of Stock</button>
-        //     )}
-        //   </div>
-        //   <div className="pro-details-wishlist">
-        //     <button
-        //       className={wishlistItem !== undefined ? "active" : ""}
-        //       disabled={wishlistItem !== undefined}
-        //       title={wishlistItem !== undefined ? "Added to wishlist" : "Add to wishlist"}
-        //       onClick={() => addToWishlist(product, addToast)}
-        //     >
-        //       <i className="pe-7s-like" />
-        //     </button>
-        //   </div>
-        //   <div className="pro-details-compare">
-        //     <button
-        //       className={compareItem !== undefined ? "active" : ""}
-        //       disabled={compareItem !== undefined}
-        //       title={compareItem !== undefined ? "Added to compare" : "Add to compare"}
-        //       onClick={() => addToCompare(product, addToast)}
-        //     >
-        //       <i className="pe-7s-shuffle" />
-        //     </button>
-        //   </div>
-        // </div>
+        <AddToCart
+          product={product}
+          variation={variation}
+          finalPrice={finalDiscountedPrice || productPrice}
+        />
+      )}
+
+      {variation?.inventory <= 10 && (
+        <div className='pro-details-inventory red mb-3'>
+          <span>{variation.inventory} Still in stock</span>
+        </div>
       )}
 
       {product.category && (
-        <div className="pro-details-meta">
+        <div className='pro-details-meta'>
           <span>Categories :</span>
           <ul>
-            {product.category.map((single, key) => {
+            {product.category.map((single: any, key: number) => {
               return (
                 <li key={key}>
-                  <Link to="/shop-grid-standard">{single}</Link>
+                  <Link to='/shop-grid-standard'>{single}</Link>
                 </li>
               )
             })}
@@ -214,13 +87,13 @@ export const ProductInfo = ({
       )}
 
       {product.tag && (
-        <div className="pro-details-meta">
+        <div className='pro-details-meta'>
           <span>Tags :</span>
           <ul>
             {product.tag.map((single, key) => {
               return (
                 <li key={key}>
-                  <Link to="/shop-grid-standard">{single}</Link>
+                  <Link to='/shop-grid-standard'>{single}</Link>
                 </li>
               )
             })}
@@ -228,31 +101,31 @@ export const ProductInfo = ({
         </div>
       )}
 
-      <div className="pro-details-social">
+      <div className='pro-details-social'>
         <ul>
           <li>
-            <a href="//facebook.com">
-              <i className="fa fa-facebook" />
+            <a href='//facebook.com'>
+              <i className='fa fa-facebook' />
             </a>
           </li>
           <li>
-            <a href="//dribbble.com">
-              <i className="fa fa-dribbble" />
+            <a href='//dribbble.com'>
+              <i className='fa fa-dribbble' />
             </a>
           </li>
           <li>
-            <a href="//pinterest.com">
-              <i className="fa fa-pinterest-p" />
+            <a href='//pinterest.com'>
+              <i className='fa fa-pinterest-p' />
             </a>
           </li>
           <li>
-            <a href="//twitter.com">
-              <i className="fa fa-twitter" />
+            <a href='//twitter.com'>
+              <i className='fa fa-twitter' />
             </a>
           </li>
           <li>
-            <a href="//linkedin.com">
-              <i className="fa fa-linkedin" />
+            <a href='//linkedin.com'>
+              <i className='fa fa-linkedin' />
             </a>
           </li>
         </ul>

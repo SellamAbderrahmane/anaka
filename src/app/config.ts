@@ -51,7 +51,7 @@ export const loadConfig = (): AppThunk => async (dispatch) => {
       loaded({
         http: axios,
         currency: {
-          currencyRate: 12,
+          currencyRate: 1,
           currencySymbol: "$",
         },
         storeinfo: {

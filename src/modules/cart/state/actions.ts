@@ -3,7 +3,7 @@ import { CartRepository, ProductRepository, UserRepository } from "../../../data
 import { changeCartItems, loading } from "./state"
 
 export interface ICartActions {
-  addToCart(product: any, quantity: number, variants: any): AppThunk
+  addToCart(product: any, quantity: number, variation: any, finalPrice: any): AppThunk
   decreaseQuantity(): AppThunk
   deleteAllFromCart(): AppThunk
   deleteFromCart(product: any): AppThunk
@@ -15,16 +15,18 @@ export function cartActions(
   userRepository: UserRepository,
   cartRepository: CartRepository
 ): ICartActions {
-  function addToCart(product: any, quantity: number, variants: any): AppThunk {
+  function addToCart(product: any, quantity: number, variation: any, finalPrice: any): AppThunk {
     return async (dispatch, getState) => {
       dispatch(loading())
 
       const result = await cartRepository.addToCart(
         product,
         quantity,
-        variants,
+        variation,
+        finalPrice,
         getState().cart.cartItems
       )
+      console.log(result)
 
       dispatch(changeCartItems(result))
     }
@@ -44,7 +46,7 @@ export function cartActions(
     return async (dispatch, getState) => {
       dispatch(loading())
 
-      const result = await cartRepository.deleteFromCart(product,  getState().cart.cartItems)
+      const result = await cartRepository.deleteFromCart(product, getState().cart.cartItems)
 
       dispatch(changeCartItems(result))
     }

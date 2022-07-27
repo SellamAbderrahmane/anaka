@@ -1,39 +1,34 @@
 import React, { useEffect, useState } from "react"
 
-export const ProductVariants = ({ product, onVariantsChange }: any) => {
-  const [selectedProductColor, setSelectedProductColor] = useState(
-    product.variation ? product.variation[0].color : ""
-  )
-
-  const [selectedProductSize, setSelectedProductSize] = useState(
-    product.variation ? product.variation[0].size[0].name : ""
-  )
+const GroupOptionContent = ({ group, onOptionSelected }) => {
+  const groupname = group.name.toLowerCase()
+  const [selectedOption, setSelectedOption]: any = useState(group.options[0])
 
   useEffect(() => {
-    onVariantsChange({
-      selectedProductColor,
-      selectedProductSize,
-    })
-  }, [selectedProductColor, selectedProductSize])
+    onOptionSelected(selectedOption)
+  }, [selectedOption])
 
-  if (!product.variation) {
-    return
-  }
-
-  return (
-    <div className="pro-details-size-color">
+  if (groupname === "color") {
+    return (
       <div className="pro-details-color-wrap">
-        <span>Color {selectedProductColor}</span>
-        <div className="pro-details-color-content">
-          {product.variation.map((single, key) => {
+        <span>{group.name}</span>
+        <div className="pro-details-size-content">
+          {group.options.map((option: any, indx: number) => {
             return (
-              <label className={`pro-details-color-content--single ${single.color}`} key={key}>
+              <label
+                style={{
+                  border: `1px solid ${option.value}`,
+                  backgroundColor: option.value,
+                }}
+                className="pro-details-color-content--single"
+                key={indx}
+              >
                 <input
                   type="radio"
-                  value={single.color}
+                  value={option.value}
                   name="product-color"
-                  checked={single.color === selectedProductColor}
-                  onChange={() => setSelectedProductColor(single.color)}
+                  checked={option.id === selectedOption?.id}
+                  onChange={() => setSelectedOption(option)}
                 />
                 <span className="checkmark"></span>
               </label>
@@ -41,28 +36,49 @@ export const ProductVariants = ({ product, onVariantsChange }: any) => {
           })}
         </div>
       </div>
+    )
+  }
+
+  if (groupname === "size") {
+    return (
       <div className="pro-details-size">
-        <span>Size</span>
+        <span>{group.name}</span>
         <div className="pro-details-size-content">
-          {product.variation.map((single) => {
-            return single.color === selectedProductColor
-              ? single.size.map((singleSize, key) => {
-                  return (
-                    <label className={`pro-details-size-content--single`} key={key}>
-                      <input
-                        type="radio"
-                        value={singleSize.name}
-                        checked={singleSize.name === selectedProductSize}
-                        onChange={() => setSelectedProductSize(singleSize.name)}
-                      />
-                      <span className="size-name">{singleSize.name}</span>
-                    </label>
-                  )
-                })
-              : ""
+          {group.options.map((option: any, indx: number) => {
+            return (
+              <label className={`pro-details-size-content--single`} key={indx}>
+                <input
+                  type="radio"
+                  value={option.value}
+                  checked={option.id === selectedOption?.id}
+                  onChange={() => setSelectedOption(option)}
+                />
+                <span className="size-name">{option.label}</span>
+              </label>
+            )
           })}
         </div>
       </div>
+    )
+  }
+}
+
+export const ProductVariants = ({ product, onVariantsChange }: any) => {
+  if (!product?.variant_groups) {
+    return
+  }
+
+  return (
+    <div className="pro-details-variants">
+      {product.variant_groups.map((group: any, key: number) => {
+        return (
+          <GroupOptionContent
+            group={group}
+            key={key}
+            onOptionSelected={(option: any) => onVariantsChange(group.id, option)}
+          />
+        )
+      })}
     </div>
   )
 }

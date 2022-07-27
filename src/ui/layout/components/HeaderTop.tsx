@@ -1,17 +1,8 @@
 import React from "react"
 
-const HeaderTop = ({
-  currency = {
-    currencyRate: 12,
-    currencySymbol: "$",
-  },
-  setCurrency,
-  currentLanguageCode,
-  dispatch,
-  borderStyle,
-}: any) => {
+const HeaderTop = ({ currency, setCurrency, currentLanguageCode, dispatch, borderStyle }: any) => {
   return (
-    <div className='header-top-wap'>
+    <div className="header-top-wap">
       {/* <LanguageCurrencyChanger
         currency={currency}
         setCurrency={setCurrency}

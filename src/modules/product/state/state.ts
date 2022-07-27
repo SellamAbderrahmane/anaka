@@ -3,11 +3,15 @@ import { RootState } from "../../../app/store"
 
 export interface ProductState {
   product: any
+  productVariants: any[]
+  additionalInfo: any[]
   status?: "idle" | "loading" | "failed"
 }
 
 const initialState: ProductState = {
   product: {},
+  additionalInfo: [],
+  productVariants: [],
   status: "idle",
 }
 
@@ -20,8 +24,12 @@ export const productSlice = createSlice({
     },
 
     productInfoLoaded: (state, action: PayloadAction<any>) => {
+      const { product, productVariants, additionalInfo} = action.payload
+
       state.status = "idle"
-      state.product = action.payload
+      state.product = product
+      state.productVariants = productVariants
+      state.additionalInfo = additionalInfo
     },
   },
 })

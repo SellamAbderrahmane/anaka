@@ -8,6 +8,7 @@ import Spinner from "../spinner/Spinner"
 export const TabProduct = ({
   category,
   products,
+  currency,
   bgColorClass,
   spaceTopClass,
   loading = false,
@@ -41,6 +42,7 @@ export const TabProduct = ({
                   <ProductGrid
                     products={products?.news || []}
                     category={category}
+                    currency={currency}
                     type="new"
                     limit={8}
                     spaceBottomClass="mb-25"
@@ -52,6 +54,7 @@ export const TabProduct = ({
                   <ProductGrid
                     products={products?.bestSellers || []}
                     category={category}
+                    currency={currency}
                     type="bestSeller"
                     limit={8}
                     spaceBottomClass="mb-25"

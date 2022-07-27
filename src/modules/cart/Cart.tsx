@@ -1,20 +1,20 @@
 import React, { Fragment, useState } from "react"
 import { Link } from "react-router-dom"
+import { configState } from "../../app/config"
+import { useAppSelector } from "../../app/hooks"
 import Breadcrumb from "../../ui/components/Breadcrumb"
 import { getDiscountPrice } from "../../utils"
 
 export const Cart = ({
   location,
   cartItems,
-  currency = {
-    currencyRate: 12,
-    currencySymbol: "$"
-  },
   decreaseQuantity,
   addToCart,
   deleteFromCart,
   deleteAllFromCart,
 }: any) => {
+  const config = useAppSelector(configState)
+
   const [quantityCount] = useState(1)
   // const { pathname } = location
   let cartTotalPrice = 0
@@ -110,11 +110,11 @@ export const Cart = ({
                           )
 
                           const finalProductPrice = (
-                            cartItem.price * currency.currencyRate
+                            cartItem.price * config.currency.currencyRate
                           ).toFixed(2)
 
                           const finalDiscountedPrice = (
-                            discountedPrice * currency.currencyRate
+                            discountedPrice * config.currency.currencyRate
                           ).toFixed(2)
 
                           cartTotalPrice += 100
@@ -149,15 +149,15 @@ export const Cart = ({
                                 {discountedPrice !== null ? (
                                   <Fragment>
                                     <span className="amount old">
-                                      {currency.currencySymbol + finalProductPrice}
+                                      {config.currency.currencySymbol + finalProductPrice}
                                     </span>
                                     <span className="amount">
-                                      {currency.currencySymbol + finalDiscountedPrice}
+                                      {config.currency.currencySymbol + finalDiscountedPrice}
                                     </span>
                                   </Fragment>
                                 ) : (
                                   <span className="amount">
-                                    {currency.currencySymbol + finalProductPrice}
+                                    {config.currency.currencySymbol + finalProductPrice}
                                   </span>
                                 )}
                               </td>
@@ -271,11 +271,11 @@ export const Cart = ({
                     </div>
                     <h5>
                       Total products{" "}
-                      <span>{currency.currencySymbol + cartTotalPrice.toFixed(2)}</span>
+                      <span>{config.currency.currencySymbol + cartTotalPrice.toFixed(2)}</span>
                     </h5>
 
                     <h4 className="grand-totall-title">
-                      Grand Total <span>{currency.currencySymbol + cartTotalPrice.toFixed(2)}</span>
+                      Grand Total <span>{config.currency.currencySymbol + cartTotalPrice.toFixed(2)}</span>
                     </h4>
                     <Link to={process.env.PUBLIC_URL + "/checkout"}>Proceed to Checkout</Link>
                   </div>

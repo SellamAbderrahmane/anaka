@@ -5,10 +5,7 @@ import ProductRating from "./ProductRating"
 
 export const ProductGridList = ({
   products,
-  currency = {
-    currencyRate: 1,
-    currencySymbol: "$",
-  },
+  currency,
   addToCart,
   addToWishlist,
   addToCompare,
@@ -54,7 +51,6 @@ export const ProductGridListSingle = ({
   spaceBottomClass,
 }) => {
   const [modalShow, setModalShow] = useState(false)
-  // const { addToast } = useToasts()
 
   const discountedPrice = 0
   const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2)

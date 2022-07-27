@@ -1,4 +1,5 @@
 import React, { useEffect } from "react"
+import { configState } from "../../app/config"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import FeatureIcon from "../../ui/components/FeatureIcon"
 import { TabProduct } from "../../ui/components/product"
@@ -11,6 +12,7 @@ const Home = () => {
   const action = useHome()
   const dispatch = useAppDispatch()
   const state = useAppSelector(currentHomeState)
+  const config = useAppSelector(configState)
 
   useEffect(() => {
     dispatch(action.getHerosProducts())
@@ -30,6 +32,7 @@ const Home = () => {
       <TabProduct
         category="fashion"
         spaceBottomClass="pb-60"
+        currency={config.currency}
         products={state.dailyProducts}
         loading={state.status === "dailyLoading"}
       />

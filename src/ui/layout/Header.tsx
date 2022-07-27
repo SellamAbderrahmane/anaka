@@ -25,7 +25,7 @@ const Header = ({ top, currency, loggedIn, cartItems, wishItems, compareItems }:
     <header className="header-area clearfix">
       <div className="d-none d-lg-block header-top-area">
         <div className="container">
-          <HeaderTop />
+          <HeaderTop currency={currency}/>
         </div>
       </div>
 

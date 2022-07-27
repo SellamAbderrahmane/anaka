@@ -17,67 +17,58 @@ const MenuCart = ({ currency }) => {
 
   if (state.cartItems && state.cartItems.length > 0) {
     return (
-      <div className="shopping-cart-content">
+      <div className='shopping-cart-content'>
         <Spinner spinning={state.status === "loading"}>
           <Fragment>
             <ul>
               {state.cartItems.map((single, key) => {
-                const discountedPrice = 0
-                const finalProductPrice = (single.price * currency.currencyRate).toFixed(2)
-                const finalDiscountedPrice = (discountedPrice * currency.currencyRate).toFixed(2)
-
                 return (
-                  <li className="single-shopping-cart" key={key}>
-                    <div className="shopping-cart-img">
+                  <li className='single-shopping-cart' key={key}>
+                    <div className='shopping-cart-img'>
                       <Link to={process.env.PUBLIC_URL + "/product/" + single.id}>
                         <img
-                          alt=""
+                          alt=''
                           src={process.env.PUBLIC_URL + single.image[0]}
-                          className="img-fluid"
+                          className='img-fluid'
                         />
                       </Link>
                     </div>
-                    <div className="shopping-cart-title">
+                    <div className='shopping-cart-title'>
                       <h4>
                         <Link to={process.env.PUBLIC_URL + "/product/" + single.id}>
                           {single.name}
                         </Link>
                       </h4>
-                      <h6>Qty: {single.quantity}</h6>
-                      <span>
-                        {discountedPrice !== null
-                          ? currency.currencySymbol + finalDiscountedPrice
-                          : currency.currencySymbol + finalProductPrice}
-                      </span>
-                      {single.selectedProductColor && single.selectedProductSize && (
-                        <div className="cart-item-variation">
-                          <span>Color: {single.selectedProductColor}</span>
-                          <span>Size: {single.selectedProductSize}</span>
+                      {single.variation && (
+                        <div className='cart-item-variation'>
+                          <span>{single.variation.description}</span>
                         </div>
                       )}
+                      <h6>Qty: {single.quantity}</h6>
+                      <span>{currency.currencySymbol + single.finalPrice}</span>
                     </div>
-                    <div className="shopping-cart-delete">
+                    <div className='shopping-cart-delete'>
                       <button onClick={() => deleteFromCart(single)}>
-                        <i className="fa fa-times-circle" />
+                        <i className='fa fa-times-circle' />
                       </button>
                     </div>
                   </li>
                 )
               })}
             </ul>
-            <div className="shopping-cart-total">
+            <div className='shopping-cart-total'>
               <h4>
                 Total :
-                <span className="shop-total">
+                <span className='shop-total'>
                   {currency.currencySymbol + state.cartTotalPrice.toFixed(2)}
                 </span>
               </h4>
             </div>
-            <div className="shopping-cart-btn btn-hover text-center">
-              <Link className="default-btn" to="/cart">
+            <div className='shopping-cart-btn btn-hover text-center'>
+              <Link className='default-btn' to='/cart'>
                 view cart
               </Link>
-              <Link className="default-btn" to="/checkout">
+              <Link className='default-btn' to='/checkout'>
                 checkout
               </Link>
             </div>
@@ -88,8 +79,8 @@ const MenuCart = ({ currency }) => {
   }
 
   return (
-    <div className="shopping-cart-content">
-      <p className="text-center">No items added to cart</p>
+    <div className='shopping-cart-content'>
+      <p className='text-center'>No items added to cart</p>
     </div>
   )
 }

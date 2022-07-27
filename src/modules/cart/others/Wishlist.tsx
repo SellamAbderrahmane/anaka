@@ -1,20 +1,20 @@
 import React, { Fragment } from "react"
 import { Link } from "react-router-dom"
+import { configState } from "../../../app/config"
+import { useAppSelector } from "../../../app/hooks"
 import Breadcrumb from "../../../ui/components/Breadcrumb"
 import { getDiscountPrice } from "../../../utils"
 
 export const Wishlist = ({
   location,
   cartItems = [],
-  currency = {
-    currencyRate: 12,
-    currencySymbol: "$",
-  },
   addToCart,
   wishlistItems,
   deleteFromWishlist,
   deleteAllFromWishlist,
 }: any) => {
+  const config = useAppSelector(configState)
+
   wishlistItems = [
     {
       id: "4",
@@ -102,10 +102,10 @@ export const Wishlist = ({
                           )
 
                           const finalProductPrice = (
-                            wishlistItem.price * currency.currencyRate
+                            wishlistItem.price * config.currency.currencyRate
                           ).toFixed(2)
                           const finalDiscountedPrice = (
-                            discountedPrice * currency.currencyRate
+                            discountedPrice * config.currency.currencyRate
                           ).toFixed(2)
                           const cartItem = cartItems.filter(
                             (item) => item.id === wishlistItem.id
@@ -133,15 +133,15 @@ export const Wishlist = ({
                                 {discountedPrice !== null ? (
                                   <Fragment>
                                     <span className="amount old">
-                                      {currency.currencySymbol + finalProductPrice}
+                                      {config.currency.currencySymbol + finalProductPrice}
                                     </span>
                                     <span className="amount">
-                                      {currency.currencySymbol + finalDiscountedPrice}
+                                      {config.currency.currencySymbol + finalDiscountedPrice}
                                     </span>
                                   </Fragment>
                                 ) : (
                                   <span className="amount">
-                                    {currency.currencySymbol + finalProductPrice}
+                                    {config.currency.currencySymbol + finalProductPrice}
                                   </span>
                                 )}
                               </td>

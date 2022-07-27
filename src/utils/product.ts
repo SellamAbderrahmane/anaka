@@ -1,5 +1,49 @@
 import { isEqual } from "lodash"
 
+export const getProductVariation = (selectedVariants: any, productVariants: any[]): any => {
+  if (!selectedVariants || productVariants.length === 0) return null
+
+  const variant = productVariants.find((productVariant) => {
+    return isEqual(productVariant.options, selectedVariants)
+  })
+
+  if (!variant) return null
+
+  return variant
+}
+
+export const getProductPrice = (productPrice: number, variantion: any, currency: any) => {
+  if (!productPrice || !variantion) {
+    return productPrice
+  }
+
+  return +((productPrice + variantion.price.raw) * currency.currencyRate).toFixed(2)
+}
+
+export const getDiscountPrice = (price: number, discount: number, currency: any) => {
+  if (discount && discount > 0) {
+    return +((price - price * (discount / 100)) * currency.currencyRate).toFixed(2)
+  }
+
+  return 0
+}
+
+export const getProductCartQuantity = (cartItems: any[], product: any, selectVariation: any) => {
+  let cartProduct: any = null
+
+  if (!product.variant_groups) {
+    cartProduct = cartItems.find((item) => item.id === product.id)
+  } else {
+    cartProduct = cartItems.find((item) => {
+      return item.id === product.id && isEqual(item.variation, selectVariation)
+    })
+  }
+
+  if (!cartProduct || !cartProduct.quantity) return 0
+
+  return cartProduct.quantity
+}
+
 // get products
 export const getProducts = (products, category, type, limit) => {
   const finalProducts = category
@@ -22,50 +66,6 @@ export const getProducts = (products, category, type, limit) => {
     return saleItems.slice(0, limit ? limit : saleItems.length)
   }
   return finalProducts.slice(0, limit ? limit : finalProducts.length)
-}
-
-// get product discount price
-export const getDiscountPrice = (price, discount) => {
-  return discount && discount > 0 ? price - price * (discount / 100) : 0
-}
-
-// get product cart quantity
-export const getProductCartQuantity = (cartItems: any[], product: any, variants: any) => {
-  let cartProduct: any = null
-  if (!product.variation) {
-    cartProduct = cartItems.find((item) => item.id === product.id)
-  } else {
-    cartProduct = cartItems.find((item) => {
-      return item.id === product.id && isEqual(item.variants, variants)
-    })
-  }
-
-  if(!cartProduct || !cartProduct.quantity) return 0
-
-  return cartProduct.quantity
-
-
-  // let productInCart = cartItems.filter(
-  //   (single) =>
-  //     single.id === product.id &&
-  //     (single.selectedProductColor ? single.selectedProductColor === color : true) &&
-  //     (single.selectedProductSize ? single.selectedProductSize === size : true)
-  // )[0]
-
-  // if (cartItems.length >= 1 && productInCart) {
-  //   if (product.variation) {
-  //     return cartItems.filter(
-  //       (single) =>
-  //         single.id === product.id &&
-  //         single.selectedProductColor === color &&
-  //         single.selectedProductSize === size
-  //     )[0].quantity
-  //   } else {
-  //     return cartItems.filter((single) => product.id === single.id)[0].quantity
-  //   }
-  // } else {
-  //   return 0
-  // }
 }
 
 //get products based on category

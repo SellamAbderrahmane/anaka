@@ -15,6 +15,7 @@ import { currentProductState, productActions } from "./state"
 export const Product = ({ productID }) => {
   const productActions = useProduct()
   const dispatch = useAppDispatch()
+  const confState = useAppSelector(configState)
   const state = useAppSelector(currentProductState)
 
   useEffect(() => {
@@ -30,14 +31,13 @@ export const Product = ({ productID }) => {
           spaceTopClass="pt-100"
           spaceBottomClass="pb-100"
           product={state.product}
-          currency={{
-            currencyRate: 12,
-            currencySymbol: "$",
-          }}
+          currency={confState.currency}
+          productVariants={state.productVariants}
         />
 
         <ProductDescriptionTab
           spaceBottomClass="pb-90"
+          additionalInfo={state.additionalInfo}
           productFullDesc={state.product.fullDescription}
         />
 

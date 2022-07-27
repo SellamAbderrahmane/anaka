@@ -1,44 +1,16 @@
-import { getDiscountPrice } from "../../../utils"
-import { useToasts } from "react-toast-notifications";
 import ProductImageGallery from "./ProductImageGallery"
 import ProductInfo from "./ProductInfo"
 
-const ProductImageDescription = ({
-  spaceTopClass,
-  spaceBottomClass,
-  product,
-  currency,
-  wishlistItems = [],
-  compareItems = [],
-}: any) => {
-  const wishlistItem = wishlistItems.filter((wishlistItem) => wishlistItem.id === product.id)[0]
-  const compareItem = compareItems.filter((compareItem) => compareItem.id === product.id)[0]
-  const { addToast } = useToasts();
-
-  const discountedPrice = getDiscountPrice(product.price, product.discount)
-  const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2)
-  const finalDiscountedPrice = +(discountedPrice * currency.currencyRate).toFixed(2)
-
+const ProductImageDescription = ({ product, currency, productVariants }: any) => {
   return (
-    <div
-      className='shop-area pt-100 pb-100'
-    >
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-6 col-md-6">
+    <div className='shop-area pt-100 pb-100'>
+      <div className='container'>
+        <div className='row'>
+          <div className='col-lg-6 col-md-6'>
             <ProductImageGallery product={product} />
           </div>
-          <div className="col-lg-6 col-md-6">
-            <ProductInfo
-              product={product}
-              discountedPrice={discountedPrice}
-              currency={currency}
-              finalDiscountedPrice={finalDiscountedPrice}
-              finalProductPrice={finalProductPrice}
-              wishlistItem={wishlistItem}
-              compareItem={compareItem}
-              addToast={addToast}
-            />
+          <div className='col-lg-6 col-md-6'>
+            <ProductInfo product={product} currency={currency} productVariants={productVariants} />
           </div>
         </div>
       </div>

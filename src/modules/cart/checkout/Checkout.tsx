@@ -1,16 +1,13 @@
 import React, { Fragment } from "react"
 import { Link } from "react-router-dom"
-import Breadcrumb from "../../ui/components/Breadcrumb"
-import { getDiscountPrice } from "../../utils"
+import { configState } from "../../../app/config"
+import { useAppSelector } from "../../../app/hooks"
+import Breadcrumb from "../../../ui/components/Breadcrumb"
+import { getDiscountPrice } from "../../../utils"
 
-export const Checkout = ({
-  location,
-  cartItems,
-  currency = {
-    currencyRate: 12,
-    currencySymbol: "$",
-  },
-}: any) => {
+export const Checkout = ({ location, cartItems }: any) => {
+  const config = useAppSelector(configState)
+
   let cartTotalPrice = 0
 
   cartItems = [
@@ -191,9 +188,10 @@ export const Checkout = ({
                               cartItem.price,
                               cartItem.discount
                             )
-                            const finalProductPrice = cartItem.price * currency.currencyRate
+                            const finalProductPrice = cartItem.price * config.currency.currencyRate
 
-                            const finalDiscountedPrice = discountedPrice * currency.currencyRate
+                            const finalDiscountedPrice =
+                              discountedPrice * config.currency.currencyRate
 
                             discountedPrice != null
                               ? (cartTotalPrice += finalDiscountedPrice * cartItem.quantity)
@@ -205,9 +203,9 @@ export const Checkout = ({
                                 </span>{" "}
                                 <span className="order-price">
                                   {discountedPrice !== null
-                                    ? currency.currencySymbol +
+                                    ? config.currency.currencySymbol +
                                       (finalDiscountedPrice * cartItem.quantity).toFixed(2)
-                                    : currency.currencySymbol +
+                                    : config.currency.currencySymbol +
                                       (finalProductPrice * cartItem.quantity).toFixed(2)}
                                 </span>
                               </li>
@@ -224,7 +222,7 @@ export const Checkout = ({
                       <div className="your-order-total">
                         <ul>
                           <li className="order-total">Total</li>
-                          <li>{currency.currencySymbol + cartTotalPrice.toFixed(2)}</li>
+                          <li>{config.currency.currencySymbol + cartTotalPrice.toFixed(2)}</li>
                         </ul>
                       </div>
                     </div>

@@ -5,10 +5,7 @@ import ProductRating from "./ProductRating"
 
 export const ProductGrid = ({
   products,
-  currency = {
-    currencyRate: 1,
-    currencySymbol: "$",
-  },
+  currency,
   addToCart,
   addToWishlist,
   addToCompare,

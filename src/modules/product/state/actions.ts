@@ -8,7 +8,7 @@ export interface IProductActions {
 
 export function productActions(productRepository: ProductRepository): IProductActions {
   function loadProductInfo(productID: any): AppThunk {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
       dispatch(loading())
 
       const product = await productRepository.getProductInfo(productID)

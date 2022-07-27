@@ -10,11 +10,13 @@ import products from "../../data/products.json"
 import { ProductGridList } from "../../ui/components"
 import Spinner from "../../ui/components/spinner/Spinner"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import { configState } from "../../app/config"
 
 export const ShopPage = ({ pageLimit = 15 }: any) => {
   const shop = useShop()
   const dispatch = useAppDispatch()
   const state = useAppSelector(ShopState)
+  const config = useAppSelector(configState)
 
   const [layout, setLayout] = useState("grid three-column")
 
@@ -70,7 +72,11 @@ export const ShopPage = ({ pageLimit = 15 }: any) => {
               <div className="shop-bottom-area mt-35">
                 <Spinner spinning={state.status === "loading"}>
                   <div className={`row ${layout ? layout : ""}`}>
-                    <ProductGridList products={state.products} spaceBottomClass="mb-25" />
+                    <ProductGridList
+                      products={state.products}
+                      currency={config.currency}
+                      spaceBottomClass="mb-25"
+                    />
                   </div>
                 </Spinner>
               </div>

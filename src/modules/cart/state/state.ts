@@ -28,6 +28,9 @@ export const cartSlice = createSlice({
     changeCartItems: (state, action: PayloadAction<any>) => {
       state.status = "idle"
       state.cartItems = action.payload
+      state.cartTotalPrice = action.payload.reduce((acc: number, item: any) => {
+        return acc + item.finalPrice
+      }, 0)
     },
   },
 })

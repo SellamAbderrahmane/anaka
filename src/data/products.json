@@ -2,7 +2,7 @@
   {
     "id": "1",
     "sku": "asdf123",
-    "name": "Lorem ipsum jacket",
+    "name": "Lorem ipsum jacket hello",
     "price": 12.45,
     "discount": 10,
     "offerEnd": "October 5, 2020 12:11:00",
@@ -11,76 +11,53 @@
     "saleCount": 54,
     "category": ["fashion", "men"],
     "tag": ["fashion", "men", "jacket", "full sleeve"],
-    "variation": [
+    "variant_groups": [
       {
-        "color": "white",
-        "image": "/assets/img/product/fashion/1.jpg",
-        "size": [
+        "id": "vgrp_ZM8X5neBPopv4q",
+        "meta": null,
+        "name": "Size",
+        "options": [
           {
-            "name": "x",
-            "stock": 3
+            "id": "optn_G6kVw730W2w2eD",
+            "label": "XL",
+            "value": "xl"
           },
           {
-            "name": "m",
-            "stock": 2
+            "id": "optn_G6kVw730W2w2eF",
+            "label": "X",
+            "value": "x"
           },
           {
-            "name": "xl",
-            "stock": 5
+            "id": "optn_G6kVw730W2w2rF",
+            "label": "XXL",
+            "value": "xxl"
           }
         ]
       },
       {
-        "color": "black",
-        "image": "/assets/img/product/fashion/8.jpg",
-        "size": [
+        "id": "vgrp_ZM8X5neBPopv5q",
+        "meta": null,
+        "name": "Color",
+        "options": [
           {
-            "name": "x",
-            "stock": 4
+            "id": "optn_G6kVw730W2w2eD",
+            "label": "Blue",
+            "value": "blue"
           },
           {
-            "name": "m",
-            "stock": 7
-          },
-          {
-            "name": "xl",
-            "stock": 9
-          },
-          {
-            "name": "xxl",
-            "stock": 1
-          }
-        ]
-      },
-      {
-        "color": "brown",
-        "image": "/assets/img/product/fashion/3.jpg",
-        "size": [
-          {
-            "name": "x",
-            "stock": 1
-          },
-          {
-            "name": "m",
-            "stock": 2
-          },
-          {
-            "name": "xl",
-            "stock": 4
-          },
-          {
-            "name": "xxl",
-            "stock": 0
+            "id": "optn_G6kVw730W2w2eF",
+            "label": "Red",
+            "value": "red"
           }
         ]
       }
     ],
     "image": [
-      "/assets/img/product/fashion/1.jpg",
+      "/assets/img/IMG_3304.jpg",
       "/assets/img/product/fashion/3.jpg",
-      "/assets/img/product/fashion/6.jpg",
+      "/assets/img/IMG_3304.jpg",
       "/assets/img/product/fashion/8.jpg",
-      "/assets/img/product/fashion/9.jpg"
+      "/assets/img/IMG_3304.jpg"
     ],
     "shortDescription": "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.",
     "fullDescription": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?"
@@ -96,72 +73,44 @@
     "saleCount": 12,
     "category": ["fashion", "women"],
     "tag": ["fashion", "women", "coat", "full sleeve"],
-    "variation": [
+    "variant_groups": [
       {
-        "color": "blue",
-        "image": "/assets/img/product/fashion/2.jpg",
-        "size": [
+        "id": "vgrp_ZM8X5neBPopv4q",
+        "meta": null,
+        "name": "Size",
+        "options": [
           {
-            "name": "x",
-            "stock": 3
+            "id": "optn_G6kVw730W2w2eD",
+            "label": "XL",
+            "value": "xl"
           },
           {
-            "name": "m",
-            "stock": 6
-          },
-          {
-            "name": "xl",
-            "stock": 7
+            "id": "optn_G6kVw730W2w2eF",
+            "label": "X",
+            "value": "x"
           }
         ]
       },
       {
-        "color": "brown",
-        "image": "/assets/img/product/fashion/4.jpg",
-        "size": [
+        "id": "vgrp_ZM8X5neBPopv5q",
+        "meta": null,
+        "name": "Color",
+        "options": [
           {
-            "name": "x",
-            "stock": 4
+            "id": "optn_G6kVw730W2w2eD",
+            "label": "Blue",
+            "value": "blue"
           },
           {
-            "name": "m",
-            "stock": 8
-          },
-          {
-            "name": "xl",
-            "stock": 3
-          },
-          {
-            "name": "xxl",
-            "stock": 7
-          }
-        ]
-      },
-      {
-        "color": "black",
-        "image": "/assets/img/product/fashion/5.jpg",
-        "size": [
-          {
-            "name": "x",
-            "stock": 3
-          },
-          {
-            "name": "m",
-            "stock": 7
-          },
-          {
-            "name": "xl",
-            "stock": 0
-          },
-          {
-            "name": "xxl",
-            "stock": 7
+            "id": "optn_G6kVw730W2w2eF",
+            "label": "Red",
+            "value": "red"
           }
         ]
       }
     ],
     "image": [
-      "/assets/img/product/fashion/2.jpg",
+      "/assets/img/IMG_3304.jpg",
       "/assets/img/product/fashion/4.jpg",
       "/assets/img/product/fashion/5.jpg",
       "/assets/img/product/fashion/7.jpg",
@@ -183,66 +132,38 @@
     "saleCount": 36,
     "category": ["fashion", "men"],
     "tag": ["fashion", "men", "jacket", "full sleeve"],
-    "variation": [
+    "variant_groups": [
       {
-        "color": "white",
-        "image": "/assets/img/product/fashion/1.jpg",
-        "size": [
+        "id": "vgrp_ZM8X5neBPopv4q",
+        "meta": null,
+        "name": "Size",
+        "options": [
           {
-            "name": "x",
-            "stock": 3
+            "id": "optn_G6kVw730W2w2eD",
+            "label": "XL",
+            "value": "xl"
           },
           {
-            "name": "m",
-            "stock": 2
-          },
-          {
-            "name": "xl",
-            "stock": 5
+            "id": "optn_G6kVw730W2w2eF",
+            "label": "X",
+            "value": "x"
           }
         ]
       },
       {
-        "color": "black",
-        "image": "/assets/img/product/fashion/8.jpg",
-        "size": [
+        "id": "vgrp_ZM8X5neBPopv5q",
+        "meta": null,
+        "name": "Color",
+        "options": [
           {
-            "name": "x",
-            "stock": 4
+            "id": "optn_G6kVw730W2w2eD",
+            "label": "Blue",
+            "value": "blue"
           },
           {
-            "name": "m",
-            "stock": 7
-          },
-          {
-            "name": "xl",
-            "stock": 9
-          },
-          {
-            "name": "xxl",
-            "stock": 1
-          }
-        ]
-      },
-      {
-        "color": "brown",
-        "image": "/assets/img/product/fashion/3.jpg",
-        "size": [
-          {
-            "name": "x",
-            "stock": 1
-          },
-          {
-            "name": "m",
-            "stock": 2
-          },
-          {
-            "name": "xl",
-            "stock": 4
-          },
-          {
-            "name": "xxl",
-            "stock": 0
+            "id": "optn_G6kVw730W2w2eF",
+            "label": "Red",
+            "value": "red"
           }
         ]
       }
@@ -268,66 +189,38 @@
     "saleCount": 20,
     "category": ["fashion", "women"],
     "tag": ["fashion", "women", "coat", "full sleeve"],
-    "variation": [
+    "variant_groups": [
       {
-        "color": "blue",
-        "image": "/assets/img/product/fashion/2.jpg",
-        "size": [
+        "id": "vgrp_ZM8X5neBPopv4q",
+        "meta": null,
+        "name": "Size",
+        "options": [
           {
-            "name": "x",
-            "stock": 3
+            "id": "optn_G6kVw730W2w2eD",
+            "label": "XL",
+            "value": "xl"
           },
           {
-            "name": "m",
-            "stock": 6
-          },
-          {
-            "name": "xl",
-            "stock": 7
+            "id": "optn_G6kVw730W2w2eF",
+            "label": "X",
+            "value": "x"
           }
         ]
       },
       {
-        "color": "brown",
-        "image": "/assets/img/product/fashion/4.jpg",
-        "size": [
+        "id": "vgrp_ZM8X5neBPopv5q",
+        "meta": null,
+        "name": "Color",
+        "options": [
           {
-            "name": "x",
-            "stock": 4
+            "id": "optn_G6kVw730W2w2eD",
+            "label": "Blue",
+            "value": "blue"
           },
           {
-            "name": "m",
-            "stock": 8
-          },
-          {
-            "name": "xl",
-            "stock": 3
-          },
-          {
-            "name": "xxl",
-            "stock": 7
-          }
-        ]
-      },
-      {
-        "color": "black",
-        "image": "/assets/img/product/fashion/5.jpg",
-        "size": [
-          {
-            "name": "x",
-            "stock": 3
-          },
-          {
-            "name": "m",
-            "stock": 7
-          },
-          {
-            "name": "xl",
-            "stock": 0
-          },
-          {
-            "name": "xxl",
-            "stock": 7
+            "id": "optn_G6kVw730W2w2eF",
+            "label": "Red",
+            "value": "red"
           }
         ]
       }
@@ -353,66 +246,38 @@
     "saleCount": 25,
     "category": ["fashion", "women"],
     "tag": ["fashion", "women", "coat", "full sleeve"],
-    "variation": [
+    "variant_groups": [
       {
-        "color": "blue",
-        "image": "/assets/img/product/fashion/2.jpg",
-        "size": [
+        "id": "vgrp_ZM8X5neBPopv4q",
+        "meta": null,
+        "name": "Size",
+        "options": [
           {
-            "name": "x",
-            "stock": 3
+            "id": "optn_G6kVw730W2w2eD",
+            "label": "XL",
+            "value": "xl"
           },
           {
-            "name": "m",
-            "stock": 6
-          },
-          {
-            "name": "xl",
-            "stock": 7
+            "id": "optn_G6kVw730W2w2eF",
+            "label": "X",
+            "value": "x"
           }
         ]
       },
       {
-        "color": "brown",
-        "image": "/assets/img/product/fashion/4.jpg",
-        "size": [
+        "id": "vgrp_ZM8X5neBPopv5q",
+        "meta": null,
+        "name": "Color",
+        "options": [
           {
-            "name": "x",
-            "stock": 4
+            "id": "optn_G6kVw730W2w2eD",
+            "label": "Blue",
+            "value": "blue"
           },
           {
-            "name": "m",
-            "stock": 8
-          },
-          {
-            "name": "xl",
-            "stock": 3
-          },
-          {
-            "name": "xxl",
-            "stock": 7
-          }
-        ]
-      },
-      {
-        "color": "black",
-        "image": "/assets/img/product/fashion/5.jpg",
-        "size": [
-          {
-            "name": "x",
-            "stock": 3
-          },
-          {
-            "name": "m",
-            "stock": 7
-          },
-          {
-            "name": "xl",
-            "stock": 0
-          },
-          {
-            "name": "xxl",
-            "stock": 7
+            "id": "optn_G6kVw730W2w2eF",
+            "label": "Red",
+            "value": "red"
           }
         ]
       }
@@ -439,66 +304,38 @@
     "saleCount": 65,
     "category": ["fashion", "men"],
     "tag": ["fashion", "men", "jacket", "full sleeve"],
-    "variation": [
+    "variant_groups": [
       {
-        "color": "white",
-        "image": "/assets/img/product/fashion/1.jpg",
-        "size": [
+        "id": "vgrp_ZM8X5neBPopv4q",
+        "meta": null,
+        "name": "Size",
+        "options": [
           {
-            "name": "x",
-            "stock": 3
+            "id": "optn_G6kVw730W2w2eD",
+            "label": "XL",
+            "value": "xl"
           },
           {
-            "name": "m",
-            "stock": 2
-          },
-          {
-            "name": "xl",
-            "stock": 5
+            "id": "optn_G6kVw730W2w2eF",
+            "label": "X",
+            "value": "x"
           }
         ]
       },
       {
-        "color": "black",
-        "image": "/assets/img/product/fashion/8.jpg",
-        "size": [
+        "id": "vgrp_ZM8X5neBPopv5q",
+        "meta": null,
+        "name": "Color",
+        "options": [
           {
-            "name": "x",
-            "stock": 4
+            "id": "optn_G6kVw730W2w2eD",
+            "label": "Blue",
+            "value": "blue"
           },
           {
-            "name": "m",
-            "stock": 7
-          },
-          {
-            "name": "xl",
-            "stock": 9
-          },
-          {
-            "name": "xxl",
-            "stock": 1
-          }
-        ]
-      },
-      {
-        "color": "brown",
-        "image": "/assets/img/product/fashion/3.jpg",
-        "size": [
-          {
-            "name": "x",
-            "stock": 1
-          },
-          {
-            "name": "m",
-            "stock": 2
-          },
-          {
-            "name": "xl",
-            "stock": 4
-          },
-          {
-            "name": "xxl",
-            "stock": 0
+            "id": "optn_G6kVw730W2w2eF",
+            "label": "Red",
+            "value": "red"
           }
         ]
       }
@@ -524,66 +361,38 @@
     "saleCount": 55,
     "category": ["fashion", "women"],
     "tag": ["fashion", "women", "coat", "full sleeve"],
-    "variation": [
+    "variant_groups": [
       {
-        "color": "blue",
-        "image": "/assets/img/product/fashion/2.jpg",
-        "size": [
+        "id": "vgrp_ZM8X5neBPopv4q",
+        "meta": null,
+        "name": "Size",
+        "options": [
           {
-            "name": "x",
-            "stock": 3
+            "id": "optn_G6kVw730W2w2eD",
+            "label": "XL",
+            "value": "xl"
           },
           {
-            "name": "m",
-            "stock": 6
-          },
-          {
-            "name": "xl",
-            "stock": 7
+            "id": "optn_G6kVw730W2w2eF",
+            "label": "X",
+            "value": "x"
           }
         ]
       },
       {
-        "color": "brown",
-        "image": "/assets/img/product/fashion/4.jpg",
-        "size": [
+        "id": "vgrp_ZM8X5neBPopv5q",
+        "meta": null,
+        "name": "Color",
+        "options": [
           {
-            "name": "x",
-            "stock": 4
+            "id": "optn_G6kVw730W2w2eD",
+            "label": "Blue",
+            "value": "blue"
           },
           {
-            "name": "m",
-            "stock": 8
-          },
-          {
-            "name": "xl",
-            "stock": 3
-          },
-          {
-            "name": "xxl",
-            "stock": 7
-          }
-        ]
-      },
-      {
-        "color": "black",
-        "image": "/assets/img/product/fashion/5.jpg",
-        "size": [
-          {
-            "name": "x",
-            "stock": 3
-          },
-          {
-            "name": "m",
-            "stock": 7
-          },
-          {
-            "name": "xl",
-            "stock": 0
-          },
-          {
-            "name": "xxl",
-            "stock": 7
+            "id": "optn_G6kVw730W2w2eF",
+            "label": "Red",
+            "value": "red"
           }
         ]
       }
@@ -2372,7 +2181,7 @@
     "saleCount": 54,
     "category": ["fashion", "kids"],
     "tag": ["fashion", "kids"],
-    "variation": [
+    "variant_groups": [
       {
         "color": "white",
         "image": "/assets/img/product/fashion/23.jpg",
@@ -2457,7 +2266,7 @@
     "saleCount": 12,
     "category": ["fashion", "kids"],
     "tag": ["fashion", "kids"],
-    "variation": [
+    "variant_groups": [
       {
         "color": "blue",
         "image": "/assets/img/product/fashion/24.jpg",
@@ -2544,7 +2353,7 @@
     "saleCount": 36,
     "category": ["fashion", "kids"],
     "tag": ["fashion", "kids"],
-    "variation": [
+    "variant_groups": [
       {
         "color": "white",
         "image": "/assets/img/product/fashion/25.jpg",
@@ -2629,7 +2438,7 @@
     "saleCount": 20,
     "category": ["fashion", "kids"],
     "tag": ["fashion", "kids"],
-    "variation": [
+    "variant_groups": [
       {
         "color": "blue",
         "image": "/assets/img/product/fashion/26.jpg",
@@ -2714,7 +2523,7 @@
     "saleCount": 25,
     "category": ["fashion", "kids"],
     "tag": ["fashion", "kids"],
-    "variation": [
+    "variant_groups": [
       {
         "color": "blue",
         "image": "/assets/img/product/fashion/27.jpg",
@@ -2800,7 +2609,7 @@
     "saleCount": 65,
     "category": ["fashion", "kids"],
     "tag": ["fashion", "kids"],
-    "variation": [
+    "variant_groups": [
       {
         "color": "white",
         "image": "/assets/img/product/fashion/28.jpg",
@@ -2885,7 +2694,7 @@
     "saleCount": 55,
     "category": ["fashion", "kids"],
     "tag": ["fashion", "kids"],
-    "variation": [
+    "variant_groups": [
       {
         "color": "blue",
         "image": "/assets/img/product/fashion/29.jpg",

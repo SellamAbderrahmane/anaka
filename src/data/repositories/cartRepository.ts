@@ -9,14 +9,14 @@ export class CartRepository {
     this.http = http
   }
 
-  async addToCart(product: any, qty: number, variants: any, cartItems: any[]) {
+  async addToCart(product: any, qty: number, variation: any, finalPrice: any, cartItems: any[]) {
     let cartProduct: any = null
 
-    if (!product.variation) {
+    if (!product.variant_groups) {
       cartProduct = cartItems.find((item) => item.id === product.id)
     } else {
       cartProduct = cartItems.find((item) => {
-        return item.id === product.id && isEqual(item.variants, variants)
+        return item.id === product.id && isEqual(item.variation.id, variation.id)
       })
     }
 
@@ -25,18 +25,20 @@ export class CartRepository {
         ...cartItems,
         {
           ...product,
-          variants,
+          variation,
           cartItemId: uuid(),
+          finalPrice: (qty || 1) * finalPrice,
           quantity: qty || 1,
         },
       ]
     }
 
     return cartItems.map((item) => {
-      if (item.id === cartProduct.id) {
+      if (item.cartItemId === cartProduct.cartItemId) {
         return {
           ...item,
           quantity: item.quantity + (qty || 1),
+          finalPrice: (item.quantity + (qty || 1)) * finalPrice,
         }
       }
 

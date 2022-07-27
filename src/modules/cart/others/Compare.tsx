@@ -1,5 +1,7 @@
 import React, { Fragment } from "react"
 import { Link } from "react-router-dom"
+import { configState } from "../../../app/config"
+import { useAppSelector } from "../../../app/hooks"
 import { ProductRating } from "../../../ui/components"
 import Breadcrumb from "../../../ui/components/Breadcrumb"
 import { getDiscountPrice } from "../../../utils"
@@ -9,12 +11,10 @@ export const Compare = ({
   cartItems = [],
   compareItems,
   addToCart,
-  deleteFromCompare,
-  currency = {
-    currencyRate: 12,
-    currencySymbol: "$",
-  },
+  deleteFromCompare
 }: any) => {
+  const config = useAppSelector(configState)
+
   compareItems = [
     {
       id: "92",
@@ -215,25 +215,25 @@ export const Compare = ({
                               compareItem.discount
                             )
                             const finalProductPrice = (
-                              compareItem.price * currency.currencyRate
+                              compareItem.price * config.currency.currencyRate
                             ).toFixed(2)
                             const finalDiscountedPrice = (
-                              discountedPrice * currency.currencyRate
+                              discountedPrice * config.currency.currencyRate
                             ).toFixed(2)
                             return (
                               <td className="product-price" key={key}>
                                 {discountedPrice !== null ? (
                                   <Fragment>
                                     <span className="amount old">
-                                      {currency.currencySymbol + finalProductPrice}
+                                      {config.currency.currencySymbol + finalProductPrice}
                                     </span>
                                     <span className="amount">
-                                      {currency.currencySymbol + finalDiscountedPrice}
+                                      {config.currency.currencySymbol + finalDiscountedPrice}
                                     </span>
                                   </Fragment>
                                 ) : (
                                   <span className="amount">
-                                    {currency.currencySymbol + finalProductPrice}
+                                    {config.currency.currencySymbol + finalProductPrice}
                                   </span>
                                 )}
                               </td>
