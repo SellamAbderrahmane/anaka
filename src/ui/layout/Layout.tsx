@@ -6,7 +6,7 @@ const Layout = ({
   children,
   headerTop,
   currency,
-  loggedIn,
+  user,
   cartItems,
   wishItems,
   compareItems,
@@ -14,15 +14,15 @@ const Layout = ({
   return (
     <Fragment>
       <Header
+        user={user}
         top={headerTop}
         currency={currency}
-        loggedIn={loggedIn}
         cartItems={cartItems}
         wishItems={wishItems}
         compareItems={compareItems}
       />
       {children}
-      <Footer backgroundColorClass="bg-gray" spaceTopClass="pt-100" spaceBottomClass="pb-70" />
+      <Footer backgroundColorClass='bg-gray' spaceTopClass='pt-100' spaceBottomClass='pb-70' />
     </Fragment>
   )
 }

@@ -4,7 +4,7 @@ import IconGroup from "./components/IconGroup"
 import Logo from "./components/Logo"
 import NavMenu from "./components/NavMenu"
 
-const Header = ({ top, currency, loggedIn, cartItems, wishItems, compareItems }: any) => {
+const Header = ({ top, currency, user, cartItems, wishItems, compareItems }: any) => {
   const [scroll, setScroll] = useState(0)
   const [headerTop, setHeaderTop] = useState(0)
 
@@ -22,28 +22,28 @@ const Header = ({ top, currency, loggedIn, cartItems, wishItems, compareItems }:
   }
 
   return (
-    <header className="header-area clearfix">
-      <div className="d-none d-lg-block header-top-area">
-        <div className="container">
-          <HeaderTop currency={currency}/>
+    <header className='header-area clearfix'>
+      <div className='d-none d-lg-block header-top-area'>
+        <div className='container'>
+          <HeaderTop currency={currency} />
         </div>
       </div>
 
       <div
         className={`sticky-bar header-res-padding clearfix ${scroll > headerTop ? "stick" : ""}`}
       >
-        <div className="container">
-          <div className="row">
-            <div className="col-xl-2 col-lg-2 col-md-6 col-4">
-              <Logo imageUrl="/assets/img/logo/logo.png" logoClass="logo" />
+        <div className='container'>
+          <div className='row'>
+            <div className='col-xl-2 col-lg-2 col-md-6 col-4'>
+              <Logo imageUrl='/assets/img/logo/logo.png' logoClass='logo' />
             </div>
-            <div className="col-xl-8 col-lg-8 d-none d-lg-block">
+            <div className='col-xl-8 col-lg-8 d-none d-lg-block'>
               <NavMenu strings={{}} />
             </div>
-            <div className="col-xl-2 col-lg-2 col-md-6 col-8">
+            <div className='col-xl-2 col-lg-2 col-md-6 col-8'>
               <IconGroup
+                user={user}
                 currency={currency}
-                loggedIn={loggedIn}
                 cartItems={cartItems}
                 wishItems={wishItems}
                 compareItems={compareItems}

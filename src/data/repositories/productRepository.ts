@@ -61,28 +61,54 @@ export class ProductRepository {
       ]
       let additionalInfo = [
         {
-          label: 'Weight',
-          value: '400 g',
+          label: "Weight",
+          value: "400 g",
         },
         {
-          label: 'Dimensions',
-          value: '10 x 10 x 15 cm',
+          label: "Dimensions",
+          value: "10 x 10 x 15 cm",
         },
         {
-          label: 'Materials',
-          value: '60% cotton, 40% polyester',
+          label: "Materials",
+          value: "60% cotton, 40% polyester",
         },
         {
-          label: 'Other Info',
-          value: 'American heirloom jean shorts pug seitan letterpress',
-        }
+          label: "Other Info",
+          value: "American heirloom jean shorts pug seitan letterpress",
+        },
+      ]
+
+      let reviews = [
+        {
+          id: "REV_232",
+          content: `
+            Vestibulum ante ipsum primis aucibus orci luctustrices posuere cubilia Curae Suspendisse
+            viverra ed viverra. Mauris ullarper euismod vehicula. Phasellus quam nisi, congue id
+            nulla.
+          `,
+          user: {
+            id: "USER_12",
+            name: "Abderrahmane sellam",
+            img: process.env.PUBLIC_URL + "/assets/img/testimonial/1.jpg",
+          },
+        },
+        {
+          id: "REV_233",
+          content: `Vestibulum ante`,
+          user: {
+            id: "USER_13",
+            name: "Abderrahmane",
+            img: process.env.PUBLIC_URL + "/assets/img/testimonial/1.jpg",
+          },
+        },
       ]
 
       setTimeout(() => {
         resolve({
           product,
+          reviews,
           productVariants,
-          additionalInfo
+          additionalInfo,
         })
       }, 100)
     })
@@ -328,6 +354,12 @@ export class ProductRepository {
       setTimeout(() => {
         return resolve(products)
       }, 100)
+    })
+  }
+
+  async addReview(review: any) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => resolve(review), 1000)
     })
   }
 }

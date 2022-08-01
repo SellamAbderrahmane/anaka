@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react"
+import React, { Fragment, useCallback, useEffect } from "react"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { configState } from "../../app/config"
@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { ProductRepository } from "../../data"
 import Breadcrumb from "../../ui/components/Breadcrumb"
 import Spinner from "../../ui/components/spinner/Spinner"
+import { currentAuthState } from "../auth/state"
 import { Productcontext, useProduct } from "../contexts"
 import ProductDescriptionTab from "./components/ProductDescriptionTab"
 import ProductImageDescription from "./components/ProductImageDescription"
@@ -17,9 +18,19 @@ export const Product = ({ productID }) => {
   const dispatch = useAppDispatch()
   const confState = useAppSelector(configState)
   const state = useAppSelector(currentProductState)
+  const userState = useAppSelector(currentAuthState)
 
   useEffect(() => {
     dispatch(productActions.loadProductInfo(productID))
+  }, [])
+
+  const onReviewSubmet = useCallback((value: any) => {
+    const review = {
+      ...value,
+      user: userState.user
+    }
+
+    dispatch(productActions.addReview(review))
   }, [])
 
   return (
@@ -28,16 +39,19 @@ export const Product = ({ productID }) => {
 
       <Spinner spinning={state.status === "loading"}>
         <ProductImageDescription
-          spaceTopClass="pt-100"
-          spaceBottomClass="pb-100"
+          spaceTopClass='pt-100'
+          spaceBottomClass='pb-100'
           product={state.product}
           currency={confState.currency}
           productVariants={state.productVariants}
         />
 
         <ProductDescriptionTab
-          spaceBottomClass="pb-90"
+          productReviews={state.reviews}
           additionalInfo={state.additionalInfo}
+          isUserConnected={userState.loggedIn}
+          onReviewSubmet={onReviewSubmet}
+          reviewsLoading={state.status === 'reviewsLoading'}
           productFullDesc={state.product.fullDescription}
         />
 

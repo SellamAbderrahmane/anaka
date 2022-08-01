@@ -2,7 +2,7 @@ import React from "react"
 import { useDispatch } from "react-redux"
 
 import { useUserAction } from "../../contexts"
-import { FormGroup, required, useForm } from "../../../ui/components/form"
+import { email, FormGroup, required, useForm } from "../../../ui/components/form"
 
 export const SignIn = () => {
   const dispatch = useDispatch()
@@ -12,7 +12,7 @@ export const SignIn = () => {
     email: {
       name: "email",
       placeholder: "Email",
-      validators: [required("Email required")],
+      validators: [required("Email required"), email('Email format invalid')],
     },
     password: {
       name: "password",
@@ -38,7 +38,7 @@ export const SignIn = () => {
   const actions = () => {
     return (
       <div className="button-box">
-        <button onClick={login} disabled={!isValid()}>
+        <button onClick={login} >
           <span>Login</span>
         </button>
       </div>

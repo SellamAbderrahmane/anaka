@@ -1,6 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { AppThunk, RootState } from "./store"
 import { AxiosClient } from "../data/axios.client"
+import { TOKEN } from "../utils"
+
+import { toast } from "react-toastify"
+
+const modal = {
+  info: (title: string, msg: string) => {
+    toast.info(msg)
+  },
+  success: (title: string, msg: string) => {
+    toast.success(msg)
+  },
+  error: (title: string, msg: string) => {
+    toast.error(msg)
+  },
+  warning: (title: string, msg: string) => {
+    toast.warning(msg)
+  },
+}
 
 export interface CONFIGSTATE {
   http: AxiosClient | null
@@ -45,7 +63,17 @@ export const loadConfig = (): AppThunk => async (dispatch) => {
   try {
     dispatch(loading())
 
-    const axios = new AxiosClient({ baseURL: "http://localhost:3001/api" }, "TOKEN")
+    const axios = new AxiosClient(
+      { baseURL: "http://localhost:3001/v1" },
+      TOKEN,
+      (type: "success" | "info" | "warning" | "error", title: string, message: string) => {
+        if (modal[type]) {
+          modal[type](title, message)
+        } else {
+          console.log(message)
+        }
+      }
+    )
 
     dispatch(
       loaded({

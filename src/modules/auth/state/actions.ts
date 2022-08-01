@@ -5,9 +5,9 @@ import { TOKEN } from "../../../utils"
 import { loading, loginError, loginSuccess } from "./state"
 
 export interface AuthActionsCreators {
-  login(userData: any): void
-  signUp(userData: any): void
-  isAuthenticated(): void
+  login(userData: any): AppThunk<any>
+  signUp(userData: any): AppThunk<any>
+  isAuthenticated(): AppThunk<any>
 }
 
 export function authActions(repository: AuthRepository): AuthActionsCreators {
@@ -38,9 +38,9 @@ export function authActions(repository: AuthRepository): AuthActionsCreators {
 
         const result = await repository.isAuthentecated()
 
-        const { accessToken, user } = result
+        const { token, user } = result
 
-        localStorage.setItem(TOKEN, accessToken)
+        localStorage.setItem(TOKEN, token)
 
         dispatch(loginSuccess(user))
       } catch (error) {
@@ -53,13 +53,12 @@ export function authActions(repository: AuthRepository): AuthActionsCreators {
     return async (dispatch: any) => {
       try {
         dispatch(loading())
-        console.log("signUp", userData)
 
         const rep: any = await repository.signUp(userData)
 
-        const { user } = rep
+        localStorage.setItem(TOKEN, rep.accessToken)
 
-        dispatch(loginSuccess(user))
+        dispatch(loginSuccess(rep.user))
       } catch (error) {
         if (error instanceof ServerException) {
           dispatch(loginError(error.message))
