@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { AppThunk, RootState } from "./store"
-import { AxiosClient } from "../data/axios.client"
+import { AxiosClient, Status } from "../data/axios.client"
 import { TOKEN } from "../utils"
 
 import { toast } from "react-toastify"
@@ -75,24 +75,28 @@ export const loadConfig = (): AppThunk => async (dispatch) => {
       }
     )
 
+    const storeInfo = await getStoreInfo(axios)
+
     dispatch(
       loaded({
         http: axios,
-        currency: {
-          currencyRate: 1,
-          currencySymbol: "$",
-        },
-        storeinfo: {
-          tel: "+012 345 678 102",
-          email: "yourname@email.com",
-          website: "yourwebsitename.com",
-          address: "Address goes here",
-          street: "street, Crossroad 123.",
-          socials: [{ name: "facebook" }, { name: "instagram" }],
-        },
+        ...storeInfo
       })
     )
   } catch (error) {}
+}
+
+const getStoreInfo = async (http: AxiosClient) => {
+  const result = await http.fetch({
+    url: '/store/info',
+    method: 'GET'
+  })
+
+  if(result.status === Status.ERROR) {
+    throw Error(result.message)
+  }
+
+  return result.storeInfo
 }
 
 export default config.reducer

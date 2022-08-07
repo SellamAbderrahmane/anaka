@@ -69,11 +69,21 @@ export class UserRepository {
   }
 
   async contactSubscribe(data: any) {
-    return new Promise((resolve, reject) => {
-      console.log(data)
+    try {
+      const rep = await this.http.fetch({
+        url: "/auth/contact",
+        method: "POST",
+        data: data
+      })
 
-      resolve(true)
-    })
+      if (rep.status === Status.ERROR) {
+        throw Error(rep.message)
+      }
+
+      return rep
+    } catch (error) {
+      throw new ServerException(error)
+    }
   }
 }
 

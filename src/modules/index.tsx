@@ -37,6 +37,7 @@ function MainRoutes() {
       <Layout
         user={userState.user}
         currency={appState.currency}
+        storeinfo={appState.storeinfo}
         cartItems={cartState.cartItems.length}
         wishItems={cartState.wishItems.length}
         compareItems={cartState.compareItems.length}

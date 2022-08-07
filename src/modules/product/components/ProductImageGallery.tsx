@@ -1,8 +1,8 @@
-import React, { Fragment, useEffect, useState } from "react"
+import React, { Fragment, useEffect, useRef, useState } from "react"
 import { LightgalleryProvider, LightgalleryItem } from "react-lightgallery"
 import Swiper from "react-id-swiper"
 
-export const ProductImageGallery = ({ product }: any) => {
+export const ProductImageGallery = ({ product, onImageClick }: any) => {
   const [gallerySwiper, getGallerySwiper] = useState(null)
   const [thumbnailSwiper, getThumbnailSwiper] = useState(null)
 
@@ -22,6 +22,10 @@ export const ProductImageGallery = ({ product }: any) => {
   // swiper slider settings
   const gallerySwiperParams = {
     getSwiper: getGallerySwiper,
+    spaceBetween: 10,
+    loopedSlides: 4,
+    loop: true,
+    // effect: "fade"
   }
 
   const thumbnailSwiperParams = {
@@ -38,40 +42,40 @@ export const ProductImageGallery = ({ product }: any) => {
       prevEl: ".swiper-button-prev",
     },
     renderPrevButton: () => (
-      <button className="swiper-button-prev ht-swiper-button-nav">
-        <i className="pe-7s-angle-left" />
+      <button className='swiper-button-prev ht-swiper-button-nav'>
+        <i className='pe-7s-angle-left' />
       </button>
     ),
     renderNextButton: () => (
-      <button className="swiper-button-next ht-swiper-button-nav">
-        <i className="pe-7s-angle-right" />
+      <button className='swiper-button-next ht-swiper-button-nav'>
+        <i className='pe-7s-angle-right' />
       </button>
     ),
   }
 
   return (
     <Fragment>
-      <div className="product-large-image-wrapper">
+      <div className='product-large-image-wrapper'>
         {(product.discount || product.new) && (
-          <div className="product-img-badges">
-            {product.discount ? <span className="pink">-{product.discount}%</span> : ""}
-            {product.new ? <span className="purple">New</span> : ""}
+          <div className='product-img-badges'>
+            {product.discount && <span className='pink'>-{product.discount}%</span>}
+            {product.new && <span className='purple'>New</span>}
           </div>
         )}
 
         <LightgalleryProvider>
-          <Swiper spaceBetween={10} loopedSlides={4} effect="fade" loop>
+          <Swiper {...gallerySwiperParams}>
             {product.image &&
               product.image.map((single, key) => {
                 return (
                   <div key={key}>
-                    <LightgalleryItem group="any" src={process.env.PUBLIC_URL + single}>
+                    <LightgalleryItem group='any' src={process.env.PUBLIC_URL + single}>
                       <button>
-                        <i className="pe-7s-expand1"></i>
+                        <i className='pe-7s-expand1'></i>
                       </button>
                     </LightgalleryItem>
-                    <div className="single-image">
-                      <img src={process.env.PUBLIC_URL + single} className="img-fluid" alt="" />
+                    <div className='single-image'>
+                      <img src={process.env.PUBLIC_URL + single} className='img-fluid' alt='' />
                     </div>
                   </div>
                 )
@@ -79,15 +83,13 @@ export const ProductImageGallery = ({ product }: any) => {
           </Swiper>
         </LightgalleryProvider>
       </div>
-      <div className="product-small-image-wrapper mt-15 nav-style-1">
+      <div className='product-small-image-wrapper mt-15 nav-style-1'>
         <Swiper {...thumbnailSwiperParams}>
           {product.image &&
             product.image.map((single, key) => {
               return (
-                <div key={key}>
-                  <div className="single-image">
-                    <img src={process.env.PUBLIC_URL + single} className="img-fluid" alt="" />
-                  </div>
+                <div className='single-image' key={key}>
+                  <img src={process.env.PUBLIC_URL + single} className='img-fluid' alt='' />
                 </div>
               )
             })}

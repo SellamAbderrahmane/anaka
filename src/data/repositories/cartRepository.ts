@@ -33,20 +33,45 @@ export class CartRepository {
       ]
     }
 
-    return cartItems.map((item) => {
-      if (item.cartItemId === cartProduct.cartItemId) {
-        return {
-          ...item,
-          quantity: item.quantity + (qty || 1),
-          finalPrice: (item.quantity + (qty || 1)) * finalPrice,
-        }
+    return cartItems.reduce((acc, item) => {
+      const finalQty = item.quantity + (qty || 1)
+      if (finalQty === 0) {
+        return acc
       }
 
-      return item
-    })
+      if (item.cartItemId === cartProduct.cartItemId) {
+        acc.push({
+          ...item,
+          quantity: finalQty,
+          finalPrice: finalQty * finalPrice,
+        })
+      } else {
+        acc.push(item)
+      }
+
+      return acc
+    }, [])
   }
 
   async deleteFromCart(product: any, cartItems: any[]) {
     return cartItems.filter((cartItem) => cartItem.cartItemId !== product.cartItemId)
+  }
+
+  async addToWishList(product: any, wishItems: any[]) {
+    const wishProduct = wishItems.find((item) => item.id === product.id)
+    if (wishProduct) {
+      return wishItems.filter((item) => item.id !== product.id)
+    }
+
+    return [product, ...wishItems]
+  }
+
+  async addToCompare(product: any, compareItems: any[]) {
+    const compareProduct = compareItems.find((item) => item.id === product.id)
+    if (compareProduct) {
+      return compareItems.filter((item) => item.id !== product.id)
+    }
+
+    return [product, ...compareItems]
   }
 }

@@ -39,6 +39,6 @@ export const ShopSlice = createSlice({
 
 export const { loading, productsLoaded } = ShopSlice.actions
 
-export const ShopState = (state: RootState) => state.shop
+export const currentShopState = (state: RootState) => state.shop
 
 export const ShopReducer = ShopSlice.reducer

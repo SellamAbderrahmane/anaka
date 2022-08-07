@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react"
 import HeaderTop from "./components/HeaderTop"
 import IconGroup from "./components/IconGroup"
 import Logo from "./components/Logo"
+import MobileMenu from "./components/MobileMenu"
 import NavMenu from "./components/NavMenu"
 
-const Header = ({ top, currency, user, cartItems, wishItems, compareItems }: any) => {
+const Header = ({ top, currency, user, cartItems, wishItems, compareItems, storeinfo }: any) => {
   const [scroll, setScroll] = useState(0)
   const [headerTop, setHeaderTop] = useState(0)
 
@@ -51,8 +52,7 @@ const Header = ({ top, currency, user, cartItems, wishItems, compareItems }: any
             </div>
           </div>
         </div>
-        {/* mobile menu */}
-        {/* <MobileMenu /> */}
+        <MobileMenu storeinfo={storeinfo}/>
       </div>
     </header>
   )

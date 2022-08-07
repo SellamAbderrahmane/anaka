@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState } from "../../../app/store"
 
+declare type STATUS = "idle" | "loading" | "failed" | "wishLoading" | "compareLoading"
 export interface CartState {
   cartItems: any[]
   wishItems: any[]
   compareItems: any[]
   cartTotalPrice: number
-  status?: "idle" | "loading" | "failed"
+  status?: STATUS
 }
 
 const initialState: CartState = {
@@ -21,8 +22,8 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    loading: (state) => {
-      state.status = "loading"
+    loading: (state, action: PayloadAction<STATUS>) => {
+      state.status = action?.payload || 'loading'
     },
 
     changeCartItems: (state, action: PayloadAction<any>) => {
@@ -32,10 +33,20 @@ export const cartSlice = createSlice({
         return acc + item.finalPrice
       }, 0)
     },
+
+    changeWishItems: (state, action: PayloadAction<any>) => {
+      state.status = "idle"
+      state.wishItems = action.payload
+    },
+
+    changeCompareItems: (state, action: PayloadAction<any>) => {
+      state.status = "idle"
+      state.wishItems = action.payload
+    }
   },
 })
 
-export const { loading, changeCartItems } = cartSlice.actions
+export const { loading, changeCartItems, changeWishItems, changeCompareItems } = cartSlice.actions
 
 export const currentCartState = (state: RootState) => state.cart
 

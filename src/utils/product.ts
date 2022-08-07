@@ -44,6 +44,22 @@ export const getProductCartQuantity = (cartItems: any[], product: any, selectVar
   return cartProduct.quantity
 }
 
+export const isProductExist = (productid: any, list: any[]) => {
+  if(!list || !productid) {
+    return false
+  }
+  
+  return list.findIndex((item) => item.id === productid) !== -1
+}
+
+export const canIncreaseQty = (product: any, qty: number) => {
+  if(product.variation) {
+    return product.variation.inventory >= product.quantity + qty
+  }
+
+  return product.stock >= product.quantity + qty
+}
+
 // get products
 export const getProducts = (products, category, type, limit) => {
   const finalProducts = category

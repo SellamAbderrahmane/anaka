@@ -1,11 +1,14 @@
 import { AppThunk } from "../../../app/store"
 import { CartRepository, ProductRepository, UserRepository } from "../../../data"
-import { changeCartItems, loading } from "./state"
+import { changeCartItems, changeCompareItems, changeWishItems, loading } from "./state"
 
 export interface ICartActions {
   addToCart(product: any, quantity: number, variation: any, finalPrice: any): AppThunk
+  addToWishList(product: any): AppThunk
+  clearWishList(): AppThunk
+  addToCompareList(product: any): AppThunk
   decreaseQuantity(): AppThunk
-  deleteAllFromCart(): AppThunk
+  clearCart(): AppThunk
   deleteFromCart(product: any): AppThunk
   cartItemStock(): any
 }
@@ -26,7 +29,6 @@ export function cartActions(
         finalPrice,
         getState().cart.cartItems
       )
-      console.log(result)
 
       dispatch(changeCartItems(result))
     }
@@ -52,23 +54,44 @@ export function cartActions(
     }
   }
 
-  function deleteAllFromCart(): AppThunk {
-    return async (dispatch, getState) => {
-      dispatch(loading())
-
-      // const heroProducts = await repository.getHeroProducts()
-
-      // dispatch(heroProductsLoad(heroProducts))
+  function clearCart(): AppThunk {
+    return async (dispatch) => {
+      dispatch(changeCartItems([]))
     }
   }
 
   function cartItemStock(): any {}
 
+  function addToWishList(product: any): AppThunk {
+    return async (dispatch, getState) => {
+      dispatch(loading("wishLoading"))
+      const result = await cartRepository.addToWishList(product, getState().cart.wishItems)
+      dispatch(changeWishItems(result))
+    }
+  }
+
+  function addToCompareList(product: any): AppThunk {
+    return async (dispatch, getState) => {
+      dispatch(loading("compareLoading"))
+      const result = await cartRepository.addToCompare(product, getState().cart.compareItems)
+      dispatch(changeCompareItems(result))
+    }
+  }
+
+  function clearWishList(): AppThunk {
+    return async (dispatch) => {
+      dispatch(changeCompareItems([]))
+    }
+  }
+
   return {
     addToCart,
+    addToWishList,
+    clearWishList,
+    addToCompareList,
     decreaseQuantity,
     deleteFromCart,
-    deleteAllFromCart,
+    clearCart,
     cartItemStock,
   }
 }

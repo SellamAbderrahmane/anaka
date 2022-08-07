@@ -64,9 +64,9 @@ export const AddToCart = ({ product, variation, finalPrice }: any) => {
       </div>
       <div className='pro-details-wishlist'>
         <button
-          className={wishlistItem !== undefined ? "active" : ""}
-          disabled={wishlistItem !== undefined}
-          title={wishlistItem !== undefined ? "Added to wishlist" : "Add to wishlist"}
+          className={wishlistItem ? "active" : ""}
+          disabled={wishlistItem}
+          title={wishlistItem ? "Added to wishlist" : "Add to wishlist"}
           onClick={() => addToWishlist()}
         >
           <i className='pe-7s-like' />
@@ -74,9 +74,9 @@ export const AddToCart = ({ product, variation, finalPrice }: any) => {
       </div>
       <div className='pro-details-compare'>
         <button
-          className={compareItem !== undefined ? "active" : ""}
-          disabled={compareItem !== undefined}
-          title={compareItem !== undefined ? "Added to compare" : "Add to compare"}
+          className={compareItem ? "active" : ""}
+          disabled={compareItem}
+          title={compareItem ? "Added to compare" : "Add to compare"}
           onClick={() => addToCompare()}
         >
           <i className='pe-7s-shuffle' />

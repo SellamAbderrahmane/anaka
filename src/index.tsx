@@ -9,6 +9,7 @@ import App from "./App"
 import { store } from "./app/store"
 import * as serviceWorker from "./serviceWorker"
 import { BrowserRouter } from "react-router-dom"
+import { ToastContainer } from "react-toastify"
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 
@@ -17,6 +18,7 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <App />
+      <ToastContainer />
     </BrowserRouter>
   </Provider>
   // </React.StrictMode>

@@ -958,7 +958,7 @@
   .header-top-wap {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     @media #{$xs-layout} {
       display: block;
 

@@ -1,6 +1,7 @@
 import React from "react"
 import Swiper from "react-id-swiper"
-import { ProductGrid, ProductGridSingle } from "../../../ui/components"
+import { ProductGrid } from "../../../ui/components"
+import ProductCart from "../../../ui/components/product/ProductCart"
 import SectionTitle from "../../../ui/components/SectionTitle"
 
 export const RelatedProducts = ({ category }: any) => {
@@ -121,10 +122,10 @@ export const RelatedProducts = ({ category }: any) => {
         <SectionTitle titleText="Related Products" positionClass="text-center" spaceClass="mb-50" />
         <div className="row">
           <Swiper {...settings}>
-            {/* <ProductGrid sliderClassName="swiper-slide" /> */}
-            {products.map((product) => {
+            <ProductGrid sliderClassName="swiper-slide" products={products}/>
+            {/* {products.map((product) => {
               return (
-                <ProductGridSingle
+                <ProductCart
                   sliderClassName="swiper-slide"
                   product={product}
                   currency={{
@@ -134,7 +135,7 @@ export const RelatedProducts = ({ category }: any) => {
                   key={product.id}
                 />
               )
-            })}
+            })} */}
           </Swiper>
         </div>
       </div>

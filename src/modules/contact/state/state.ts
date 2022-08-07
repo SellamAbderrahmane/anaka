@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { toast } from "react-toastify"
 import { RootState } from "../../../app/store"
 
 export interface ContactState {
@@ -16,8 +17,9 @@ export const contactSlice = createSlice({
     loading: (state) => {
       state.status = "loading"
     },
-    subscribeSuccess: (state) => {
+    subscribeSuccess: (state, action) => {
       state.status = "idle"
+      toast.success(action.payload)
     },
   },
 })

@@ -10,6 +10,7 @@ const Layout = ({
   cartItems,
   wishItems,
   compareItems,
+  storeinfo,
 }: any) => {
   return (
     <Fragment>
@@ -20,6 +21,7 @@ const Layout = ({
         cartItems={cartItems}
         wishItems={wishItems}
         compareItems={compareItems}
+        storeinfo={storeinfo}
       />
       {children}
       <Footer backgroundColorClass='bg-gray' spaceTopClass='pt-100' spaceBottomClass='pb-70' />
