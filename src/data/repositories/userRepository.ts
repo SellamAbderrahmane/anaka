@@ -1,19 +1,20 @@
+import { TOKEN } from "../../utils"
 import { AxiosClient, Status, ServerException } from "../axios.client"
 
-export class AuthRepository {
+export class UserRepository {
   http: AxiosClient
 
   constructor(http: AxiosClient) {
     this.http = http
   }
 
-  async logIn({ username, password }: any): Promise<any> {
+  async logIn({ email, password }: any): Promise<any> {
     try {
       const rep = await this.http.fetch({
         url: "/auth/sign-in",
         method: "POST",
         data: {
-          email: username,
+          email,
           password,
         },
       })
@@ -30,10 +31,13 @@ export class AuthRepository {
 
   async isAuthentecated() {
     try {
-      const rep = await this.http.fetch({
-        url: "/auth/verify_user",
-        method: "GET",
-      })
+      const rep = await this.http.fetch(
+        {
+          url: "/auth/verify-user",
+          method: "GET",
+        },
+        false
+      )
 
       if (rep.status === Status.ERROR) {
         throw new ServerException(rep.message)
@@ -45,12 +49,42 @@ export class AuthRepository {
     }
   }
 
-  signIn({ username, password }: any): any {
-    return {
-      username: "abderrahmane",
-      email: "abderrahmane@test.com",
+  async signUp(user: any): Promise<any> {
+    try {
+      const response = await this.http.fetch({
+        url: "/auth/sign-up",
+        method: "POST",
+        data: user,
+      })
+      return response
+    } catch (error) {
+      throw new ServerException(error)
+    }
+  }
+
+  async subscribe(email: string) {
+    return new Promise((resolve, reject) => {
+      resolve(true)
+    })
+  }
+
+  async contactSubscribe(data: any) {
+    try {
+      const rep = await this.http.fetch({
+        url: "/auth/contact",
+        method: "POST",
+        data: data
+      })
+
+      if (rep.status === Status.ERROR) {
+        throw Error(rep.message)
+      }
+
+      return rep
+    } catch (error) {
+      throw new ServerException(error)
     }
   }
 }
 
-export default AuthRepository
+export default UserRepository

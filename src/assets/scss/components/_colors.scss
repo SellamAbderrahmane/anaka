@@ -1,0 +1,100 @@
+$primay-color: #2196f3;
+$secondary-color: #292b2c;
+$success-color: #5cb85c;
+$danger-color: #ff4d4f;
+$info-color: #5bc0de;
+$warn-color: #f0ad4e;
+
+$dark-blue-color: #195faa;
+
+$active-color: #c7edff;
+$normal-color: #d9d9d9;
+$white-color: #ffffff;
+$black-color: #000000;
+
+$icon-color: #61ade3; //#4bcbe3
+$scroll-color: #f0f2f5;
+$scroll-track-color: #f5f5f5;
+$scroll-thumb-color: $primay-color;
+
+$text-color: #373d3f;
+
+.bg-primary {
+  background-color: $primay-color;
+}
+
+.bg-info {
+  background-color: $info-color;
+}
+
+.bg-secondary {
+  background-color: $secondary-color;
+}
+
+.bg-success {
+  background-color: $success-color;
+}
+
+.bg-danger {
+  background-color: $danger-color;
+}
+
+.bg-warn {
+  background-color: $warn-color;
+}
+
+.primary {
+  color: $primay-color;
+}
+
+.info {
+  color: $info-color;
+}
+
+.secondary {
+  color: $secondary-color;
+}
+
+.success {
+  color: $success-color;
+}
+
+.danger {
+  color: $danger-color;
+}
+
+.warn {
+  color: $warn-color;
+}
+
+.text {
+  color: $text-color;
+}
+
+.icon {
+  color: $icon-color;
+}
+
+.blue {
+  color: #2196f3 !important;
+}
+
+.orange {
+  color: #f0ad4e !important;
+}
+
+.red {
+  color: #ff4d4f !important;
+}
+
+.yellow {
+  color: yellow !important;
+}
+
+.pink {
+  color: pink !important;
+}
+
+.purple {
+  color: purple !important;
+}

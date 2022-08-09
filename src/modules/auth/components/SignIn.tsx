@@ -1,55 +1,54 @@
 import React from "react"
-// import { Link } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { Form, Input, Button } from "antd"
-import { useAuth } from ".."
 
-function SignIn(props: any) {
+import { useUserAction } from "../../contexts"
+import { email, FormGroup, required, useForm } from "../../../ui/components/form"
+
+export const SignIn = () => {
   const dispatch = useDispatch()
-  const auth = useAuth()
+  const auth = useUserAction()
 
-  const loginHandler = (values: any) => {
-    const { username, password } = values
+  const formgroup: FormGroup = {
+    email: {
+      name: "email",
+      placeholder: "Email",
+      validators: [required("Email required"), email('Email format invalid')],
+    },
+    password: {
+      name: "password",
+      placeholder: "Password",
+      validators: [required("Password required")],
+    },
+    rememberme: {
+      type: "checkbox",
+      name: "rememberme",
+      className: "pb-3",
+      label: "Remember me",
+    },
+  }
 
-    if (username && password) {
-      dispatch(auth.login(username, password))
-    }
+  const { getvalue, renderForm, isValid } = useForm(formgroup)
+
+  const login = () => {
+    if (!isValid()) return
+
+    dispatch(auth.login(getvalue()))
+  }
+
+  const actions = () => {
+    return (
+      <div className="button-box">
+        <button onClick={login} >
+          <span>Login</span>
+        </button>
+      </div>
+    )
   }
 
   return (
-    <>
-      <h1 className='primary-color'>Log In</h1>
-      <div className='mt-10'>
-        <Form name='basic' layout='vertical' onFinish={loginHandler}>
-          <Form.Item
-            label='Username'
-            name='username'
-            rules={[{ required: true, message: "Please input your username!" }]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label='Password'
-            name='password'
-            rules={[{ required: true, message: "Please input your password!" }]}
-          >
-            <Input.Password />
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type='primary'
-              htmlType='submit'
-              size='large'
-              block={true}
-              loading={props.loading}
-            >
-              Login
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
-    </>
+    <div className="login-form-container">
+      <div className="login-register-form">{renderForm(actions)}</div>
+    </div>
   )
 }
 

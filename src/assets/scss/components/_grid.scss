@@ -1,0 +1,76 @@
+.grid-header-actions .anticon {
+  font-size: 16px;
+}
+
+.grid-header-actions .ant-btn {
+  margin-right: 10px;
+}
+
+.grid-header-actions .ant-btn:last-child {
+  margin-right: 0;
+}
+
+.grid-actions-btn {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.grid-btn {
+  text-align: center;
+  top: 0;
+  background: transparent;
+  text-indent: 0px !important;
+}
+
+.grid-btn-delete {
+  color: #690000;
+}
+
+.grid-btn-delete:hover {
+  color: #fff;
+  background: #a30303;
+}
+
+.grid-btn-edit {
+  color: #04a004;
+}
+
+.grid-btn-edit:hover {
+  color: #fff;
+  background: #04a004;
+}
+
+.ag-theme-balham .ag-root {
+  border: none;
+}
+
+.grid-btn {
+  margin-top: -6px;
+  margin-left: -6px;
+  font-size: 13px;
+}
+
+.row_obligatoire {
+  color: red !important;
+  font-weight: bold !important;
+}
+
+// .ag-theme-alpine .ag-ltr .ag-cell {
+//   border-right: 1px dotted #ddd;
+// }
+
+.ag-theme-alpine .ag-header {
+  font-weight: bolder;
+  color: black;
+  border-bottom: 2px solid #00bcd4;
+  // border-bottom: 2px solid #2199e0;
+}
+.ag-theme-alpine .ag-root-wrapper {
+  border: 1px solid #f0f2f5 !important;
+}
+.ag-theme-alpine .ag-icon {
+  color: #2199e0;
+}
+.data-row-active {
+  background: #1890ff3d;
+}

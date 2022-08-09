@@ -1,106 +1,75 @@
+import { AppThunk } from "../../../app/store"
+import { ServerException } from "../../../data"
 import AuthRepository from "../../../data/repositories/userRepository"
 import { TOKEN } from "../../../utils"
-import { ServerException } from "../../../utils"
-
-export enum AuthActionTypes {
-  LOGIN_REQUEST = "LOGIN_REQUEST",
-  LOGIN_SUCCESS = "LOGIN_SUCCESS",
-  LOGIN_ERROR = "LOGIN_ERROR",
-  SIGNIN_REQUEST = "SIGNIN_REQUEST",
-  SIGNIN_SUCCESS = "SIGNIN_SUCCESS",
-  SIGNIN_ERROR = "SIGNIN_ERROR",
-}
+import { loading, loginError, loginSuccess } from "./state"
 
 export interface AuthActionsCreators {
-  login(username: string, password: string): void
-  signIn(): void
-  isAuthenticated(): void
+  login(userData: any): AppThunk<any>
+  signUp(userData: any): AppThunk<any>
+  isAuthenticated(): AppThunk<any>
 }
 
 export function authActions(repository: AuthRepository): AuthActionsCreators {
-  function login(username: string, password: string): any {
+  function login(userData: any): AppThunk {
     return async (dispatch: any) => {
       try {
-        dispatch({
-          type: AuthActionTypes.LOGIN_REQUEST,
-        })
-        const rep: any = await repository.logIn({ username, password })
+        dispatch(loading())
+
+        const rep: any = await repository.logIn(userData)
 
         const { accessToken, user } = rep
 
         localStorage.setItem(TOKEN, accessToken)
 
-        dispatch({
-          type: AuthActionTypes.LOGIN_SUCCESS,
-          user,
-        })
+        dispatch(loginSuccess(user))
       } catch (error) {
         if (error instanceof ServerException) {
-          dispatch({
-            type: AuthActionTypes.LOGIN_ERROR,
-            error: error.message,
-          })
+          dispatch(loginError(error.message))
         }
       }
     }
   }
 
-  function isAuthenticated(): any {
+  function isAuthenticated(): AppThunk {
     return async (dispatch: any) => {
       try {
-        dispatch({
-          type: AuthActionTypes.LOGIN_REQUEST,
-        })
+        dispatch(loading())
 
-        const resp = await repository.isAuthentecated()
+        const result = await repository.isAuthentecated()
 
-        const { accessToken, user } = resp
+        const { token, user } = result
 
-        localStorage.setItem(TOKEN, accessToken)
+        localStorage.setItem(TOKEN, token)
 
-        dispatch({
-          type: AuthActionTypes.LOGIN_SUCCESS,
-          user,
-        })
+        dispatch(loginSuccess(user))
       } catch (error) {
-        dispatch({
-          type: AuthActionTypes.LOGIN_ERROR,
-          error: error.message,
-        })
+        dispatch(loginError(error.message))
       }
     }
   }
 
-  function signIn(): SignInAction {
-    return {
-      type: AuthActionTypes.SIGNIN_REQUEST,
+  function signUp(userData: any): AppThunk {
+    return async (dispatch: any) => {
+      try {
+        dispatch(loading())
+
+        const rep: any = await repository.signUp(userData)
+
+        localStorage.setItem(TOKEN, rep.accessToken)
+
+        dispatch(loginSuccess(rep.user))
+      } catch (error) {
+        if (error instanceof ServerException) {
+          dispatch(loginError(error.message))
+        }
+      }
     }
   }
 
   return {
     login,
-    signIn,
+    signUp,
     isAuthenticated,
   }
 }
-
-//auth actions
-type LoginAction = {
-  type: AuthActionTypes.LOGIN_REQUEST
-}
-
-type LoginSuccessAction = {
-  type: AuthActionTypes.LOGIN_SUCCESS
-  user: any
-}
-
-type LoginErrorAction = {
-  type: AuthActionTypes.LOGIN_ERROR
-  error: string
-}
-
-type SignInAction = {
-  type: AuthActionTypes.SIGNIN_REQUEST
-}
-
-export type AuthAction = LoginAction | SignInAction | LoginSuccessAction | LoginErrorAction

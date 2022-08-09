@@ -1,35 +1,29 @@
 import React, { useEffect } from "react"
-import { connect, useDispatch } from "react-redux"
-import { AppState } from "../../store"
-import { useAuth } from "../../modules"
+import { useDispatch } from "react-redux"
 import { Navigate } from "react-router-dom"
 
-function PrivateRoute({ element: Element, redirectTo = "/auth", roles, ...rest }: any) {
+import { useUserAction } from "../../modules/contexts"
+import { useAppSelector } from "../../app/hooks"
+import { currentAuthState } from "../../modules/auth/state"
+
+function PrivateRoute({ element: Element, redirectTo = "/auth/signin", roles, ...rest }: any) {
+  const auth = useUserAction()
   const dispatch = useDispatch()
-  const auth = useAuth()
+  const state = useAppSelector(currentAuthState)
 
   useEffect(() => {
     dispatch(auth.isAuthenticated())
-  }, [auth, dispatch])
+  }, [])
 
-  if (rest.loading) {
+  if (state.status === 'loading') {
     return <div>Loading...</div>
   }
 
-  if (rest.loggedIn) {
+  if (state.loggedIn) {
     return <Element {...rest} />
   }
 
-  return <Navigate to={"/auth"} />
+  return <Navigate to={redirectTo} />
 }
 
-const mapStateToProps = ({ auth }: AppState) => {
-  return {
-    loggedIn: auth.loggedIn,
-    loading: auth.loading,
-  }
-}
-
-const mapDispatchToProps = {}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PrivateRoute)
+export default PrivateRoute

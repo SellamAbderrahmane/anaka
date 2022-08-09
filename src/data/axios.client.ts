@@ -33,10 +33,10 @@ export class AxiosClient {
   }
 
   private init(tokenkey: string) {
-    const accessToken = this.getToken(tokenkey)
-
     this.axiosInstance.interceptors.request.use(
       (req: any) => {
+        const accessToken = this.getToken(tokenkey)
+
         req.headers["Authorization"] = `Bearer ${accessToken}`
         return req
       },
@@ -44,23 +44,27 @@ export class AxiosClient {
     )
   }
 
-  onError = (status: any, error?: any) => {
+  onError = (status: any, error?: any, withNofication?: boolean) => {
+    if (!withNofication) {
+      return
+    }
+
     if (status >= 500) {
-      this.createNotification("error", "ORASS-ERROR", error)
+      this.createNotification("error", "ANAKA-ERROR", error)
     } else {
       if (typeof error === "string") {
-        this.createNotification("warning", "ORASS-ERROR", error)
+        this.createNotification("warning", "ANAKA-ERROR", error)
       } else if (error) {
         this.createNotification(error.typemess, error.titrmess, error.libemess)
       } else {
-        this.createNotification("error", "ORASS-ERROR", "[0000] - An unexpected error occurred !!")
+        this.createNotification("error", "ANAKA-ERROR", "[0000] - An unexpected error occurred !!")
       }
     }
   }
 
-  fetch = (p: AxiosRequestConfig): Promise<any> => {
+  fetch = (p: AxiosRequestConfig, withNofication: boolean = true): Promise<any> => {
     if (p.data instanceof FormData) {
-      return this.postFormData(p.url, p.data)
+      return this.postFormData(p.url, p.data, withNofication)
     }
 
     return new Promise(async (resolve, reject) => {
@@ -69,11 +73,11 @@ export class AxiosClient {
       try {
         const rep = await this.axiosInstance.request(p)
         if (rep.status >= 500) {
-          this.onError(rep.status, "HTTP ERROR CODE: " + rep.status)
+          this.onError(rep.status, "HTTP ERROR CODE: " + rep.status, withNofication)
           reject("HTTP ERROR CODE: " + rep.status)
         } else {
           if (rep.data.status === Status.ERROR) {
-            this.onError(rep.status, rep.data.message)
+            this.onError(rep.status, rep.data.message, withNofication)
             reject(rep.data.message)
           } else {
             resolve(rep.data.data || rep.data || {})
@@ -82,23 +86,23 @@ export class AxiosClient {
       } catch (err) {
         const status = err.response?.status
         const message = err.response?.data?.message || err.response?.data
-        this.onError(status, message)
+        this.onError(status, message, withNofication)
         return reject(message)
       }
     })
   }
 
-  private postFormData(url: any, data: FormData) {
+  private postFormData(url: any, data: FormData, withNofication: boolean) {
     return new Promise(async (resolve, reject) => {
       await this.axiosInstance
         .post(url, data)
         .then((rep) => {
           if (rep.status >= 500) {
-            this.onError("HTTP ERROR CODE: " + rep.status)
+            this.onError("HTTP ERROR CODE: " + rep.status, null, withNofication)
             reject("HTTP ERROR CODE: " + rep.status)
           } else {
             if (rep.data.status === Status.ERROR) {
-              this.onError(rep.data.msg)
+              this.onError(rep.data.msg, null, withNofication)
               reject(rep.data.msg)
             } else {
               resolve(rep.data.data || rep.data || {})
@@ -108,15 +112,15 @@ export class AxiosClient {
         .catch((err: AxiosError) => {
           const status = err.response?.status
           if (err.response?.data?.msg) {
-            this.onError(status, err.response.data.msg)
+            this.onError(status, err.response.data.msg, withNofication)
             return reject(err.response.data.msg)
           }
           if (typeof err.response?.data === "string") {
-            this.onError(status, err.response.data)
+            this.onError(status, err.response.data, withNofication)
             return reject(err.response.data)
           }
 
-          this.onError(status, err.message)
+          this.onError(status, err.message, withNofication)
           return reject(err.message)
         })
     })

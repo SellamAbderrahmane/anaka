@@ -1,35 +1,31 @@
-import React, { useContext } from "react"
+import React from "react"
 import { useSelector } from "react-redux"
 
-import { AuthRepository } from "../../data"
+import Authentication from "./auth"
+import Layout from "../../ui/layout/Layout"
+import { UserRepository } from "../../data"
 import { configState } from "../../app/config"
-import { authActions, AuthActionsCreators } from "./state"
+import { authActions } from "./state"
+import { useParams } from "react-router-dom"
+import { UserActionContext } from "../contexts"
+import { useAppSelector } from "../../app/hooks"
 
-// import "./auth.scss"
-// import Authentication from "./auth"
-
-// const mapStateToProps = ({ auth }: AppState) => {
-//   return {
-//     loading: auth.loading,
-//     loggedIn: auth.loggedIn,
-//   }
-// }
-
-// const mapDispatchToProps = {}
-
-// export * from "./state"
-// export default connect(mapStateToProps, mapDispatchToProps)(Authentication)
-
-const Authcontext = React.createContext<any>({})
-
-export const useAuth = () => useContext<AuthActionsCreators>(Authcontext)
 export function AuthProvider({ children }: any) {
   const config = useSelector(configState)
-  const auth = authActions(new AuthRepository(config.http))
+  const auth = authActions(new UserRepository(config.http))
 
-  return <Authcontext.Provider value={auth}>{children}</Authcontext.Provider>
+  return <UserActionContext.Provider value={auth}>{children}</UserActionContext.Provider>
 }
 
-export default function CounterInit() {
-  return <AuthProvider></AuthProvider>
+export default function AuthInit() {
+  const appState = useAppSelector(configState)
+  const { page = "signin" } = useParams()
+
+  return (
+    <Layout cartItems={0} wishItems={0} loggedIn={false} currency={appState.currency}>
+      <AuthProvider>
+        <Authentication page={page} />
+      </AuthProvider>
+    </Layout>
+  )
 }
