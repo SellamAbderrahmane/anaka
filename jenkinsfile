@@ -6,13 +6,13 @@ pipeline {
      stages {
         stage("Build") {
             steps {
-                dat "npm install"
-                dat "npm run build"
+                bat "npm install"
+                bat "npm run build"
             }
         }
         stage("Deploy") {
             steps {
-                dat "npm start"
+                bat "npm start"
             }
         }
     }
