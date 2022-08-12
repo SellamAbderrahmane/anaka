@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect, useRef, useState } from "react"
-import { LightgalleryProvider, LightgalleryItem } from "react-lightgallery"
 import Swiper from "react-id-swiper"
 
 export const ProductImageGallery = ({ product, onImageClick }: any) => {
+  const lightGalleryRef = useRef(null);
   const [gallerySwiper, getGallerySwiper] = useState(null)
   const [thumbnailSwiper, getThumbnailSwiper] = useState(null)
 
@@ -52,7 +52,6 @@ export const ProductImageGallery = ({ product, onImageClick }: any) => {
       </button>
     ),
   }
-
   return (
     <Fragment>
       <div className='product-large-image-wrapper'>
@@ -63,25 +62,24 @@ export const ProductImageGallery = ({ product, onImageClick }: any) => {
           </div>
         )}
 
-        <LightgalleryProvider>
+        <div ref={lightGalleryRef}>
           <Swiper {...gallerySwiperParams}>
-            {product.image &&
-              product.image.map((single, key) => {
-                return (
-                  <div key={key}>
-                    <LightgalleryItem group='any' src={process.env.PUBLIC_URL + single}>
-                      <button>
-                        <i className='pe-7s-expand1'></i>
-                      </button>
-                    </LightgalleryItem>
-                    <div className='single-image'>
-                      <img src={process.env.PUBLIC_URL + single} className='img-fluid' alt='' />
-                    </div>
+            {product.image?.map((single, key) => {
+              return (
+                <div key={key}>
+                  {/* <div className='lightgallery_btn_wrap'>
+                    <button onClick={openGallery}>
+                      <i className='pe-7s-expand1'></i>
+                    </button>
+                  </div> */}
+                  <div className='single-image'>
+                    <img src={process.env.PUBLIC_URL + single} className='img-fluid' alt='' />
                   </div>
-                )
-              })}
+                </div>
+              )
+            })}
           </Swiper>
-        </LightgalleryProvider>
+        </div>
       </div>
       <div className='product-small-image-wrapper mt-15 nav-style-1'>
         <Swiper {...thumbnailSwiperParams}>

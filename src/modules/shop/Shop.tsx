@@ -8,9 +8,10 @@ import { currentShopState } from "./state"
 import { configState } from "../../app/config"
 import { useCart, useShop } from "../contexts"
 import { currentCartState } from "../cart/state"
-import { ProductGridList } from "../../ui/components"
+import { ProductGrid } from "../../ui/components"
 import Spinner from "../../ui/components/spinner/Spinner"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import { ProductsGrid } from "../components"
 
 export const ShopPage = ({ pageLimit = 15 }: any) => {
   const shop = useShop()
@@ -57,16 +58,7 @@ export const ShopPage = ({ pageLimit = 15 }: any) => {
               <div className='shop-bottom-area mt-35'>
                 <Spinner spinning={state.status === "loading"}>
                   <div className={`row ${layout ? layout : ""}`}>
-                    <ProductGridList
-                      spaceBottomClass='mb-25'
-                      products={state.products}
-                      currency={config.currency}
-                      wishlistItems={cartState.wishItems}
-                      compareItems={cartState.compareItems}
-                      cartItems={cartState.cartItems}
-                      addToWishlist={addToWishlist}
-                      addToCart={addToCart}
-                    />
+                    <ProductsGrid spaceBottomClass='mb-25' products={state.products} />
                   </div>
                 </Spinner>
               </div>

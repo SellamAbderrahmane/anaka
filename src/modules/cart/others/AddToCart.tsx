@@ -8,6 +8,7 @@ export const AddToCart = ({ product, variation, finalPrice }: any) => {
   const cartActions = useCart()
   const dispatch = useAppDispatch()
   const state = useAppSelector(currentCartState)
+  const productStock = variation?.inventory || product?.stock
 
   const [quantityCount, setQuantityCount] = useState(1)
   const [productCartQty, setProductCartQty] = useState(0)
@@ -23,21 +24,21 @@ export const AddToCart = ({ product, variation, finalPrice }: any) => {
   }
 
   const addToWishlist = () => {
-    console.log("todo")
+    dispatch(cartActions.addToWishList(product))
   }
 
   const addToCompare = () => {
-    console.log("todo")
+    dispatch(cartActions.addToCompareList(product))
   }
 
   const setQuantity = (type: "add" | "remove") => {
-    if (!variation) {
+    if (product?.variant_groups && !variation) {
       return
     }
 
     if (type === "remove") {
       setQuantityCount(quantityCount > 1 ? quantityCount - 1 : 1)
-    } else if (quantityCount < variation.inventory - productCartQty) {
+    } else if (quantityCount < productStock - productCartQty) {
       setQuantityCount(quantityCount + 1)
     }
   }
@@ -54,8 +55,8 @@ export const AddToCart = ({ product, variation, finalPrice }: any) => {
         </button>
       </div>
       <div className='pro-details-cart btn-hover'>
-        {variation && variation.inventory > 0 && variation.inventory > productCartQty ? (
-          <button onClick={() => addToCart()} disabled={productCartQty >= variation.inventory}>
+        {productStock > 0 ? (
+          <button onClick={addToCart} disabled={productCartQty >= productStock}>
             Add To Cart
           </button>
         ) : (
@@ -67,7 +68,7 @@ export const AddToCart = ({ product, variation, finalPrice }: any) => {
           className={wishlistItem ? "active" : ""}
           disabled={wishlistItem}
           title={wishlistItem ? "Added to wishlist" : "Add to wishlist"}
-          onClick={() => addToWishlist()}
+          onClick={addToWishlist}
         >
           <i className='pe-7s-like' />
         </button>
@@ -77,7 +78,7 @@ export const AddToCart = ({ product, variation, finalPrice }: any) => {
           className={compareItem ? "active" : ""}
           disabled={compareItem}
           title={compareItem ? "Added to compare" : "Add to compare"}
-          onClick={() => addToCompare()}
+          onClick={addToCompare}
         >
           <i className='pe-7s-shuffle' />
         </button>

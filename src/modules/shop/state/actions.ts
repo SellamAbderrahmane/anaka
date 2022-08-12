@@ -9,7 +9,6 @@ export interface IShopActions {
 export function ShopActions(repository: ProductRepository): IShopActions {
   function loadProducts(filters: any): AppThunk {
     return async (dispatch: any) => {
-      console.log('loadProducts');
       dispatch(loading())
       // call repository
       const result = await repository.getProducts(filters)

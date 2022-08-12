@@ -72,6 +72,10 @@ export class CartRepository {
       return compareItems.filter((item) => item.id !== product.id)
     }
 
+    if(compareItems.length >= 3) {
+      return null
+    }
+
     return [product, ...compareItems]
   }
 }

@@ -598,179 +598,83 @@
       }
     }
   }
-  .pro-details-variants{
+  .pro-details-variants {
     display: flex;
     gap: 0 1em;
+
     @media #{$xs-layout} {
       display: block;
     }
+
     @media #{$sm-layout} {
       display: flex;
     }
-    .pro-details-color-wrap {
-      @media #{$xs-layout} {
-        margin-bottom: 20px;
-      }
-      @media #{$sm-layout} {
-        margin-bottom: 0;
-      }
+
+    .pro-details-color {
       span {
         font-size: 15px;
         font-weight: 500;
 
         display: block;
 
-        margin: 0 0 15px;
+        margin: 0 0 10px;
       }
+
       .pro-details-color-content {
+        display: flex;
+        gap: 0.3em;
+
         ul {
           li {
-            position: relative;
-
-            display: block;
-            float: left;
-
-            width: 14px;
-            height: 14px;
-            margin-right: 15px;
-
-            cursor: pointer;
-            transition: all 0.4s ease 0s;
-
-            border-radius: 50px;
-            &:last-child {
-              margin-right: 0;
-            }
-            &.blue {
-              border: 1px solid #4798f3;
-              background-color: #4798f3;
-            }
-            &.maroon {
-              border: 1px solid #736751;
-              background-color: #736751;
-            }
-            &.gray {
-              border: 1px solid #c0c0c0;
-              background-color: #c0c0c0;
-            }
-            &.green {
-              border: 1px solid #139c57;
-              background-color: #139c57;
-            }
-            &.yellow {
-              border: 1px solid #e28b37;
-              background-color: #e28b37;
+            display: inline-block;
+            margin: 0 2px 0 0;
+            list-style: outside none none;
+            a {
+              display: inline-block;
+              font-size: 12px;
+              line-height: 1;
+              padding: 6px 9px 7px;
+              text-transform: uppercase;
+              color: #000;
+              background-color: #f1f2f6;
             }
           }
         }
         &--single {
           position: relative;
-
           display: inline-block;
-
-          width: 14px;
-          height: 14px;
-          margin-right: 7px;
-
+          margin: 0;
           cursor: pointer;
-          transition: all 0.4s ease 0s;
+          color: #000;
+          padding: 0.15em;
+          height: 24px;
+          width: 24px;
+          border: 1px solid transparent;
 
-          border-radius: 50px;
-          &:last-child {
-            margin-right: 0;
+          &.checked {
+            border: 1.5px solid $theme-color;
           }
+
           input {
             position: absolute;
-
+            top: 0;
+            left: 0;
             height: 100%;
-
-            cursor: pointer;
-
             opacity: 0;
+          }
 
-            &:checked {
-              & ~ .checkmark {
-                &:after {
-                  visibility: visible;
-
-                  opacity: 1;
-                }
-              }
-            }
-          }
-          &.blue {
-            border: 1px solid #4798f3;
-            background-color: #4798f3;
-          }
-          &.maroon {
-            border: 1px solid #736751;
-            background-color: #736751;
-          }
-          &.gray {
-            border: 1px solid #c0c0c0;
-            background-color: #c0c0c0;
-          }
-          &.green {
-            border: 1px solid #139c57;
-            background-color: #139c57;
-          }
-          &.yellow {
-            border: 1px solid #e28b37;
-            background-color: #e28b37;
-          }
-          &.white {
-            border: 1px solid #333;
-            background-color: #fff;
-          }
-          &.black {
-            border: 1px solid #333;
-            background-color: #333;
-          }
-          &.brown {
-            border: 1px solid brown;
-            background-color: brown;
-          }
-          .checkmark {
+          .color-box {
+            font-size: 12px;
+            font-weight: 400;
             position: relative;
-
-            display: inline-block;
-
-            width: 14px;
-            height: 14px;
+            height: 100%;
+            inset: 0;
             margin: 0;
-            &:after {
-              position: absolute;
-              top: -7px;
-              left: -4px;
-
-              visibility: hidden;
-
-              width: 20px;
-              height: 20px;
-
-              content: "";
-              transition: 0.3s;
-
-              opacity: 0;
-              border: 2px solid #333;
-              border-radius: 50%;
-            }
-          }
-
-          &:hover {
-            input {
-              & ~ .checkmark {
-                &:after {
-                  visibility: visible;
-
-                  opacity: 1;
-                }
-              }
-            }
           }
         }
       }
     }
+
     .pro-details-size {
       span {
         font-size: 15px;

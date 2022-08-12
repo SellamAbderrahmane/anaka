@@ -1,23 +1,17 @@
 import React from "react"
 import Tab from "react-bootstrap/Tab"
 import Nav from "react-bootstrap/Nav"
-import ProductGrid from "./ProductGrid"
-import SectionTitle from "../SectionTitle"
+
 import Spinner from "../spinner/Spinner"
+import SectionTitle from "../SectionTitle"
+import { ProductsGrid } from "../../../modules/components"
 
 export const TabProduct = ({
   products,
-  currency,
   bgColorClass,
   spaceTopClass,
   loading = false,
   spaceBottomClass,
-  addToCart,
-  addToWishlist,
-  addToCompare,
-  cartItems,
-  wishlistItems,
-  compareItems,
 }: any) => {
   return (
     <div
@@ -44,32 +38,12 @@ export const TabProduct = ({
             <Tab.Content>
               <Tab.Pane eventKey='newArrival'>
                 <div className='row'>
-                  <ProductGrid
-                    currency={currency}
-                    addToCart={addToCart}
-                    spaceBottomClass='mb-25'
-                    addToCompare={addToCompare}
-                    addToWishlist={addToWishlist}
-                    cartItems={cartItems}
-                    compareItems={compareItems}
-                    wishlistItems={wishlistItems}
-                    products={products?.news || []}
-                  />
+                  <ProductsGrid spaceBottomClass='mb-25' products={products?.news} />
                 </div>
               </Tab.Pane>
               <Tab.Pane eventKey='bestSeller'>
                 <div className='row'>
-                  <ProductGrid
-                    currency={currency}
-                    addToCart={addToCart}
-                    spaceBottomClass='mb-25'
-                    addToCompare={addToCompare}
-                    addToWishlist={addToWishlist}
-                    cartItems={cartItems}
-                    compareItems={compareItems}
-                    wishlistItems={wishlistItems}
-                    products={products?.bestSellers || []}
-                  />
+                  <ProductsGrid spaceBottomClass='mb-25' products={products?.bestSellers} />
                 </div>
               </Tab.Pane>
             </Tab.Content>

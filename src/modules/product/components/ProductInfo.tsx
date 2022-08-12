@@ -78,7 +78,7 @@ export const ProductInfo = ({ product, currency, productVariants }: any) => {
             {product.category.map((single: any, key: number) => {
               return (
                 <li key={key}>
-                  <Link to='/shop-grid-standard'>{single}</Link>
+                  <Link to='/shop'>{single}</Link>
                 </li>
               )
             })}
@@ -93,7 +93,7 @@ export const ProductInfo = ({ product, currency, productVariants }: any) => {
             {product.tag.map((single, key) => {
               return (
                 <li key={key}>
-                  <Link to='/shop-grid-standard'>{single}</Link>
+                  <Link to='/shop'>{single}</Link>
                 </li>
               )
             })}

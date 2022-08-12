@@ -14,15 +14,15 @@ import RelatedProducts from "./components/RelatedProducts"
 import { currentProductState, productActions } from "./state"
 
 export const Product = ({ productID }) => {
-  const productActions = useProduct()
   const dispatch = useAppDispatch()
+  const productActions = useProduct()
   const confState = useAppSelector(configState)
   const state = useAppSelector(currentProductState)
   const userState = useAppSelector(currentAuthState)
 
   useEffect(() => {
     dispatch(productActions.loadProductInfo(productID))
-  }, [])
+  }, [productID])
 
   const onReviewSubmet = useCallback((value: any) => {
     const review = {
@@ -46,7 +46,7 @@ export const Product = ({ productID }) => {
           productVariants={state.productVariants}
         />
 
-        <ProductDescriptionTab
+       <ProductDescriptionTab
           productReviews={state.reviews}
           additionalInfo={state.additionalInfo}
           isUserConnected={userState.loggedIn}
@@ -55,7 +55,7 @@ export const Product = ({ productID }) => {
           productFullDesc={state.product.fullDescription}
         />
 
-        <RelatedProducts category={state.product.category?.[0]} />
+         <RelatedProducts relatedProducts={state.relatedProducts} />
       </Spinner>
     </Fragment>
   )

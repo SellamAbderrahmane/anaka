@@ -1,3 +1,4 @@
+import { toast } from "react-toastify"
 import { AppThunk } from "../../../app/store"
 import { CartRepository, ProductRepository, UserRepository } from "../../../data"
 import { changeCartItems, changeCompareItems, changeWishItems, loading } from "./state"
@@ -72,8 +73,14 @@ export function cartActions(
 
   function addToCompareList(product: any): AppThunk {
     return async (dispatch, getState) => {
+      const compareItems = getState().cart.compareItems
       dispatch(loading("compareLoading"))
-      const result = await cartRepository.addToCompare(product, getState().cart.compareItems)
+      const result = await cartRepository.addToCompare(product, compareItems)
+      
+      if(!result) {
+        return toast.info('Max compare items')
+      }
+
       dispatch(changeCompareItems(result))
     }
   }

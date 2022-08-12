@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState } from "../../../app/store"
 
+declare type STATUS = "idle" | "loading" | "failed" | "reviewsLoading"
 export interface ProductState {
   product: any
   productVariants: any[]
   additionalInfo: any[]
+  relatedProducts: any[]
   reviews: any[]
-  status?: "idle" | "loading" | "failed" | "reviewsLoading"
+  status?: STATUS
 }
 
 const initialState: ProductState = {
@@ -14,6 +16,7 @@ const initialState: ProductState = {
   reviews: [],
   productVariants: [],
   additionalInfo: [],
+  relatedProducts: [],
   status: "idle",
 }
 
@@ -21,28 +24,25 @@ export const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    loading: (state) => {
-      state.status = "loading"
-    },
-
-    reviewsLoading: (state) => {
-      state.status = "reviewsLoading"
+    loading: (state, action?: PayloadAction<STATUS>) => {
+      state.status = action.payload
     },
 
     productInfoLoaded: (state, action: PayloadAction<any>) => {
-      const { product, productVariants, additionalInfo, reviews } = action.payload
+      const { product, productVariants, additionalInfo, reviews, relatedProducts } = action.payload
 
       state.status = "idle"
       state.product = product
       state.productVariants = productVariants
       state.additionalInfo = additionalInfo
       state.reviews = reviews
+      state.relatedProducts = relatedProducts
     },
 
     reviewAdded: (state, action: PayloadAction<any>) => {
       state.status = "idle"
       state.reviews.push(action.payload)
-    }
+    },
   },
 })
 

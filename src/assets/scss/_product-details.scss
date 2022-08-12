@@ -339,6 +339,10 @@
   }
 }
 
+.related-product-area {
+  overflow: hidden;
+}
+
 /* product details 2 */
 
 .product-dec-slider-2 {
@@ -601,15 +605,13 @@
     }
   }
 
-  .react_lightgallery_item {
+  .lightgallery_btn_wrap {
     position: absolute;
     top: 20px;
     right: 20px;
     button {
       font-size: 30px;
-
       padding: 0;
-
       border: none;
       background: none;
     }

@@ -50,14 +50,13 @@ export const config = createSlice({
       state.http = data.http
       state.storeinfo = data.storeinfo
       state.currency = data.currency
-    },
-    addToCart: (state, action: PayloadAction<number>) => {},
+    }
   },
 })
 
 export const configState = (state: RootState) => state.config
 
-export const { loaded, loading, addToCart } = config.actions
+export const { loaded, loading } = config.actions
 
 export const loadConfig = (): AppThunk => async (dispatch) => {
   try {

@@ -10,27 +10,30 @@ const GroupOptionContent = ({ group, onOptionSelected }) => {
 
   if (groupname === "color") {
     return (
-      <div className="pro-details-color-wrap">
+      <div className='pro-details-color'>
         <span>{group.name}</span>
-        <div className="pro-details-size-content">
+        <div className='pro-details-color-content'>
           {group.options.map((option: any, indx: number) => {
             return (
               <label
-                style={{
-                  border: `1px solid ${option.value}`,
-                  backgroundColor: option.value,
-                }}
-                className="pro-details-color-content--single"
+                onClick={() => setSelectedOption(option)}
+                className={`pro-details-color-content--single ${
+                  option.id == selectedOption?.id ? "checked" : ""
+                }`}
                 key={indx}
               >
                 <input
-                  type="radio"
+                  type='radio'
                   value={option.value}
-                  name="product-color"
-                  checked={option.id === selectedOption?.id}
                   onChange={() => setSelectedOption(option)}
                 />
-                <span className="checkmark"></span>
+                <span
+                  className='color-box'
+                  style={{
+                    border: `1px solid ${option.value}`,
+                    backgroundColor: option.value,
+                  }}
+                ></span>
               </label>
             )
           })}
@@ -41,19 +44,19 @@ const GroupOptionContent = ({ group, onOptionSelected }) => {
 
   if (groupname === "size") {
     return (
-      <div className="pro-details-size">
+      <div className='pro-details-size'>
         <span>{group.name}</span>
-        <div className="pro-details-size-content">
+        <div className='pro-details-size-content'>
           {group.options.map((option: any, indx: number) => {
             return (
               <label className={`pro-details-size-content--single`} key={indx}>
                 <input
-                  type="radio"
+                  type='radio'
                   value={option.value}
                   checked={option.id === selectedOption?.id}
                   onChange={() => setSelectedOption(option)}
                 />
-                <span className="size-name">{option.label}</span>
+                <span className='size-name'>{option.label}</span>
               </label>
             )
           })}
@@ -69,12 +72,12 @@ export const ProductVariants = ({ product, onVariantsChange }: any) => {
   }
 
   return (
-    <div className="pro-details-variants">
+    <div className='pro-details-variants'>
       {product.variant_groups.map((group: any, key: number) => {
         return (
           <GroupOptionContent
-            group={group}
             key={key}
+            group={group}
             onOptionSelected={(option: any) => onVariantsChange(group.id, option)}
           />
         )

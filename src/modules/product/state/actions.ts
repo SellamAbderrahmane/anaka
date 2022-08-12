@@ -20,7 +20,7 @@ export function productActions(productRepository: ProductRepository): IProductAc
 
   function addReview(review: any): AppThunk {
     return async (dispatch) => {
-      // dispatch(loading())
+      dispatch(loading("reviewsLoading"))
 
       const addedReview = await productRepository.addReview(review)
 
@@ -30,6 +30,6 @@ export function productActions(productRepository: ProductRepository): IProductAc
 
   return {
     loadProductInfo,
-    addReview
+    addReview,
   }
 }

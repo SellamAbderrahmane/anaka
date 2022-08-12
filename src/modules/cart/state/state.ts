@@ -41,7 +41,7 @@ export const cartSlice = createSlice({
 
     changeCompareItems: (state, action: PayloadAction<any>) => {
       state.status = "idle"
-      state.wishItems = action.payload
+      state.compareItems = action.payload
     }
   },
 })

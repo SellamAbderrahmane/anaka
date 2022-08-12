@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { Fragment, useEffect } from "react"
 import { configState } from "../../app/config"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import FeatureIcon from "../../ui/components/FeatureIcon"
@@ -20,39 +20,25 @@ const Home = () => {
   useEffect(() => {
     dispatch(action.getHerosProducts())
     dispatch(action.getDailyProducts())
+
+    return () => {}
   }, [])
 
   function subscribe(email: string) {
-    console.log(email)
-
     dispatch(action.subscribe(email))
   }
 
-  const addToWishlist = (product: any) => {
-    dispatch(cart.addToWishList(product))
-  }
-
-  const addToCart = (product: any) => {
-    dispatch(cart.addToCart(product, 1, null, product.price))
-  }
-
   return (
-    <div>
+    <Fragment>
       <HeroSliderOne loading={state.status === "loading"} heroSliderData={state.heroProducts} />
       <FeatureIcon />
       <TabProduct
         spaceBottomClass='pb-60'
-        addToCart={addToCart}
-        currency={config.currency}
-        addToWishlist={addToWishlist}
         products={state.dailyProducts}
-        cartItems={cartState.cartItems}
-        wishlistItems={cartState.wishItems}
-        compareItems={cartState.compareItems}
         loading={state.status === "dailyLoading"}
       />
       <Subscribe onSubscribe={subscribe} />
-    </div>
+    </Fragment>
   )
 }
 

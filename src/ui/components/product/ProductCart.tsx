@@ -1,7 +1,6 @@
-import React, { Fragment, useState } from "react"
+import React, { Fragment } from "react"
 import { Link } from "react-router-dom"
 import { getDiscountPrice, getProductPrice } from "../../../utils"
-import ProductModal from "./ProductModel"
 import ProductRating from "./ProductRating"
 
 export const ProductCart = ({
@@ -15,9 +14,7 @@ export const ProductCart = ({
   addToWishlist,
   sliderClassName,
   spaceBottomClass,
-}) => {
-  const [modalShow, setModalShow] = useState(false)
-
+}: any) => {
   const productPrice = getProductPrice(product.price, null, currency)
   const finalDiscountedPrice = getDiscountPrice(productPrice, product.discount, currency)
 
@@ -38,9 +35,9 @@ export const ProductCart = ({
             <a href={product.affiliateLink} rel='noopener noreferrer' target='_blank'>
               Buy now
             </a>
-          ) : product.variant_groups && product.variant_groups.length >= 1 ? (
+          ) : product.variant_groups ? (
             <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>Select Option</Link>
-          ) : product.stock && product.stock > 0 ? (
+          ) : product?.stock > 0 ? (
             <button
               disabled={cartItem}
               onClick={() => addToCart(product)}
@@ -56,8 +53,12 @@ export const ProductCart = ({
           )}
         </div>
         <div className='pro-same-action pro-quickview'>
-          <button onClick={() => setModalShow(true)} title='Quick View'>
-            <i className='pe-7s-look' />
+          <button
+            onClick={() => addToCompare(product)}
+            className={compareItem ? "active" : ""}
+            title={compareItem ? "Added to compare list" : "Add to compare list"}
+          >
+            <i className='pe-7s-shuffle' />
           </button>
         </div>
       </div>
@@ -66,12 +67,12 @@ export const ProductCart = ({
 
   return (
     <Fragment>
-      <div className={`col-xl-4 col-sm-4 ${sliderClassName ? sliderClassName : ""}`}>
+      <div className={`col-xl-4 col-sm-6 ${sliderClassName ? sliderClassName : ""}`}>
         <div className={`product-wrap ${spaceBottomClass ? spaceBottomClass : ""}`}>
           <div className='product-img'>
             <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
-              <img className='default-img' src={process.env.PUBLIC_URL + product.image[0]} alt='' />
-              {product.image.length > 1 && (
+              <img className='default-img' src={process.env.PUBLIC_URL + product.image?.[0]} alt='' />
+              {product.image?.length > 1 && (
                 <img className='hover-img' src={process.env.PUBLIC_URL + product.image[1]} alt='' />
               )}
             </Link>
@@ -109,7 +110,7 @@ export const ProductCart = ({
         </div>
       </div>
 
-      <ProductModal
+      {/* <ProductModal
         show={modalShow}
         onHide={() => setModalShow(false)}
         product={product}
@@ -124,7 +125,7 @@ export const ProductCart = ({
         addtowishlist={addToWishlist}
         addtocompare={addToCompare}
         addtoast={() => {}}
-      />
+      /> */}
     </Fragment>
   )
 }
